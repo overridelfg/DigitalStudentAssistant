@@ -63,7 +63,7 @@ class ProjectFragment : Fragment() {
     private fun setUpStatus(){
         val status = listOf("Создан", "Завершен", "Есть вакансии")
         val adapter = ArrayAdapter(requireContext(), R.layout.status_list_item, status)
-        (binding.statusEditText as AutoCompleteTextView).setAdapter(adapter)
+        binding.statusEditText.setAdapter(adapter)
     }
 
     @SuppressLint("SetTextI18n")

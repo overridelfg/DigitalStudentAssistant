@@ -8,5 +8,4 @@
     android:ellipsize="end"
     android:maxLines="1"
     android:padding="16dp"
-    android:textColor="@color/white"
-    />
+    android:textColor="@color/white" />

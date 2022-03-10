@@ -5,9 +5,28 @@
         <item name="boxStrokeWidth">2dp</item>
     </style>
 
-    <style name="DialogTheme" parent="Theme.AppCompat.DayNight.Dialog">
-        <item name="colorAccent">#121212</item>
+    <!--  Date Picker Styles   -->
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/mainBlue</item>           <!-- Header Background -->
+        <item name="android:colorAccent">@color/mainBlue</item>
+        <item name="android:textColor">@color/mainBlue</item>
+        <item name="android:buttonBarPositiveButtonStyle">@style/DialogButtonStyled</item>
+        <item name="android:buttonBarNegativeButtonStyle">@style/DialogButtonStyled</item>
+        <item name="android:buttonBarNeutralButtonStyle">@style/DialogButtonStyled</item>
+        <item name="android:colorControlActivated">#4971AC</item>        <!--selected day-->
     </style>
 
+    <!-- Date picker ok/cancel button styles    -->
+    <style name="DialogButtonStyled" parent="Theme.MaterialComponents.Light">
+        <item name="android:textColor">@color/mainBlue</item>
+        <item name="android:background">@color/mainBlue</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="Autocomplete" parent="Widget.AppCompat.Light.AutoCompleteTextView">
+        <item name="android:background">#1B1B1B</item>
+<!--        <item name="colorControlNormal">@color/colorPrimary</item>-->
+<!--        <item name="colorControlActivated">@color/greenColor</item>-->
+    </style>
 
 </resources>

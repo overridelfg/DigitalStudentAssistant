@@ -28,6 +28,7 @@
             android:layout_height="match_parent"
             android:hint="Name"
             android:lines="1"
+            android:maxLines="1"
             android:textColor="@color/white"
             android:textCursorDrawable="@color/mainBlue" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -42,7 +43,6 @@
         android:textColorHint="@color/white"
         app:boxStrokeColor="#4885ed"
         app:hintTextColor="#4885ed"
-
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/projectNameContainer">
 
@@ -51,6 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Purpose"
+            android:maxLines="1"
             android:lines="1"
             android:textColor="@color/white"
             android:textCursorDrawable="@color/white" />
@@ -103,6 +104,7 @@
             android:layout_height="match_parent"
             android:hint="Date"
             android:lines="1"
+            android:maxLines="1"
             android:textColor="@color/white"
             android:textCursorDrawable="@color/white"
             android:clickable="false"
@@ -132,6 +134,7 @@
             android:layout_height="match_parent"
             android:hint="Number of students"
             android:lines="1"
+            android:maxLines="1"
             android:textColor="@color/white"
             android:textCursorDrawable="@color/white" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -159,6 +162,7 @@
             android:hint="Status"
             android:inputType="none"
             android:lines="1"
+            android:popupBackground="#1B1B1B"
             android:textColor="@color/white"
             android:textCursorDrawable="@color/white" />
     </com.google.android.material.textfield.TextInputLayout>

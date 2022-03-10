@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.digitalstudentassistant.databinding.FragmentLoginBinding
 import com.example.digitalstudentassistant.ui.ProjectsActivity
 
@@ -34,6 +35,11 @@ class LoginFragment : Fragment() {
         binding.loginButton.setOnClickListener {
             val intent = Intent(requireContext(), ProjectsActivity::class.java)
             startActivity(intent)
+        }
+
+        binding.registerButton.setOnClickListener {
+            val action = LoginFragmentDirections.actionLoginFragmentToRegistrationFragment3()
+            findNavController().navigate(action)
         }
     }
 

@@ -9,17 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DigitalStudentAssistant">
-        <activity android:name=".ui.projectdetails.ProjectDetailsActivity"></activity>
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".ui.projectdetails.ProjectDetailsActivity" />
         <activity
             android:name=".ui.ProjectsActivity"
             android:label="@string/title_activity_projects"
             android:theme="@style/Theme.DigitalStudentAssistant.NoActionBar" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

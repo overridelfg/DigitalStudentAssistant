@@ -3,14 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_login"
-    app:startDestination="@id/loginFragment2">
+    app:startDestination="@id/loginFragment">
 
     <fragment
-        android:id="@+id/loginFragment2"
+        android:id="@+id/loginFragment"
         android:name="com.example.digitalstudentassistant.ui.auth.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
-
+        <action
+            android:id="@+id/action_loginFragment_to_registrationFragment3"
+            app:destination="@id/registrationFragment3"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
+    <fragment
+        android:id="@+id/registrationFragment3"
+        android:name="com.example.digitalstudentassistant.ui.auth.RegistrationFragment"
+        android:label="fragment_registration"
+        tools:layout="@layout/fragment_registration" />
+
 
 </navigation>
