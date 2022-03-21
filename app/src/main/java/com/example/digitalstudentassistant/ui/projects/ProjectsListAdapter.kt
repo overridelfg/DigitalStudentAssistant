@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.digitalstudentassistant.R
 import com.example.digitalstudentassistant.data.database.ProjectEntity
 import com.example.digitalstudentassistant.domain.models.Project
+import com.google.android.material.chip.Chip
 import org.w3c.dom.Text
 
 class ProjectsListAdapter(var context: Context, val click: (Int) -> Unit) : RecyclerView.Adapter<ProjectsListAdapter.ViewHolder>() {
@@ -33,6 +34,16 @@ class ProjectsListAdapter(var context: Context, val click: (Int) -> Unit) : Recy
         holder.itemView.setOnClickListener {
             click.invoke(projectsList[position].id)
         }
+        holder.likeChip.setOnClickListener {
+            holder.likeChip.isSelected = !holder.likeChip.isSelected
+            if(holder.likeChip.isSelected){
+                holder.likeChip.text = (holder.likeChip.text.toString().toInt() + 1).toString()
+                holder.likeChip.setChipIconResource(R.drawable.ic_thumb_up)
+            }else{
+                holder.likeChip.text = (holder.likeChip.text.toString().toInt() - 1).toString()
+                holder.likeChip.setChipIconResource(R.drawable.ic_outline_thumb_up)
+            }
+        }
     }
 
     override fun getItemCount(): Int {
@@ -40,10 +51,10 @@ class ProjectsListAdapter(var context: Context, val click: (Int) -> Unit) : Recy
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val avatarImageView: ImageView = itemView.findViewById(R.id.avatarImageView)
         val projectNameTextView: TextView = itemView.findViewById(R.id.projectNameTextView)
         val projectStatusTextView: TextView = itemView.findViewById(R.id.statusTextView)
         val projectDescriptionTextView: TextView = itemView.findViewById(R.id.descriptionTextView)
+        val likeChip: Chip = itemView.findViewById(R.id.likeChip)
     }
 
 }

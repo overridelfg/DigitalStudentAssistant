@@ -11,8 +11,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class RegistrationViewModel(private val authRepository: AuthRepositoryImpl) : ViewModel() {
-    private val registerStateFlow : MutableStateFlow<UIState<Unit, String?>> =
-        MutableStateFlow(UIState.loading())
+    private val registerStateFlow : MutableStateFlow<UIState<Any, String?>> =
+        MutableStateFlow(UIState.Loading)
     val publicRegisterStateFlow = registerStateFlow.asStateFlow()
 
 
@@ -20,14 +20,9 @@ class RegistrationViewModel(private val authRepository: AuthRepositoryImpl) : Vi
         viewModelScope.launch {
             val result = authRepository.register(email, nickname, password)
             registerStateFlow.value = when(result){
-                is OperationResult.Success -> UIState.success(result.data)
-                is OperationResult.Error -> UIState.error(Unit,     result.data)
+                is OperationResult.Success -> UIState.Success(result.data)
+                is OperationResult.Error -> UIState.Error(result.data)
             }
         }
-    }
-    sealed class UIStateLogin {
-        object Loading : UIStateLogin()
-        class Error(val e: String?) : UIStateLogin()
-        class Success(val loginResponse: LoginResponse) : UIStateLogin()
     }
 }
