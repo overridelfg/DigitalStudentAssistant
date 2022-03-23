@@ -21,6 +21,7 @@ interface ApiService {
         @Body loginRequest: LoginRequest
     ): LoginResponse
 
-    @GET("")
-    suspend fun getProject() : ProjectResponse
+    @GET("projects")
+    suspend fun getProjects() : List<ProjectResponse>
+
 }

@@ -14,4 +14,6 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="create_account"><u>Create account</u></string>
+    <string name="deadline_project_create">Дедлайн создания проекта</string>
+    <string name="deadline_team_date">Дедлайн набора команды</string>
 </resources>

@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 
 @Database(entities = [
     ProjectEntity::class
-], version = 1, exportSchema = true)
+], exportSchema = true, version = 2)
 abstract class ProjectsDatabase : RoomDatabase() {
 
     abstract fun projectsDao(): ProjectsDao
@@ -19,7 +19,7 @@ abstract class ProjectsDatabase : RoomDatabase() {
         fun create(context: Context): ProjectsDatabase{
             synchronized(this){
                 if(INSTANCE == null){
-                    INSTANCE =  Room.databaseBuilder(context.applicationContext, ProjectsDatabase::class.java, "projects_table").build()
+                    INSTANCE =  Room.databaseBuilder(context.applicationContext, ProjectsDatabase::class.java, "projects_table").fallbackToDestructiveMigration().build()
                 }
             }
             return INSTANCE!!

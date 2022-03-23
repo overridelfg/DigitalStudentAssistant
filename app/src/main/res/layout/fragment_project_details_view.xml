@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#121212"
+    tools:context=".ui.projectdetails.ProjectDetailsViewFragment">
+
+    <TextView
+        android:id="@+id/projectNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="40sp"
+        android:text="Project name"
+        android:textStyle="bold"
+        android:layout_marginTop="20sp"
+        android:layout_marginHorizontal="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/statusTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10sp"
+        android:layout_marginTop="1sp"
+        android:textColor="#219653"
+        android:gravity="center"
+        android:text="Статус"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/projectNameTextView"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/purposeTitleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10sp"
+        android:layout_marginTop="10sp"
+        android:textColor="@color/white"
+        android:text="Цель проекта"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/statusTextView"
+        app:layout_constraintStart_toStartOf="parent"/>
+    <TextView
+        android:id="@+id/purposeTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10sp"
+        android:layout_marginTop="10sp"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        android:text="Цель"
+        app:layout_constraintTop_toBottomOf="@id/purposeTitleTextView"
+        app:layout_constraintStart_toStartOf="parent" />
+    <TextView
+        android:id="@+id/deadlineProjectDateTitleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:layout_marginTop="10sp"
+        android:textSize="20sp"
+        android:layout_marginHorizontal="10sp"
+        android:text="@string/deadline_project_create"
+        app:layout_constraintTop_toBottomOf="@id/purposeTextView"
+        app:layout_constraintStart_toStartOf="parent" />
+    <TextView
+        android:id="@+id/deadlineProjectDateTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10sp"
+        android:layout_marginHorizontal="10sp"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        android:text="Deadline project date"
+        app:layout_constraintTop_toBottomOf="@id/deadlineProjectDateTitleTextView"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/deadlineTeamDateTitleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:layout_marginTop="10sp"
+        android:textSize="20sp"
+        android:layout_marginHorizontal="10sp"
+        android:text="@string/deadline_team_date"
+        app:layout_constraintTop_toBottomOf="@id/deadlineProjectDateTextView"
+        app:layout_constraintStart_toStartOf="parent" />
+    <TextView
+        android:id="@+id/deadlineTeamDateTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10sp"
+        android:textSize="17sp"
+        android:layout_marginHorizontal="10sp"
+        android:textColor="@color/white"
+        android:text="Deadline team date"
+        app:layout_constraintTop_toBottomOf="@id/deadlineTeamDateTitleTextView"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/descriptionTitleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10sp"
+        android:layout_marginTop="10sp"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:text="Описание"
+        app:layout_constraintTop_toBottomOf="@id/deadlineTeamDateTextView"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/descriptionTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10sp"
+        android:layout_marginTop="10sp"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        android:text="Описание"
+        app:layout_constraintTop_toBottomOf="@id/descriptionTitleTextView"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/editButton"
+        android:layout_width="match_parent"
+        android:layout_height="60sp"
+        android:layout_marginHorizontal="20sp"
+        android:layout_marginTop="30sp"
+        android:layout_marginBottom="30sp"
+        android:text="Изменить"
+        app:backgroundTint="#1B1B1B"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

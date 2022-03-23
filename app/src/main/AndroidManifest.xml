@@ -17,7 +17,8 @@
             android:theme="@style/Theme.DigitalStudentAssistant.NoActionBar" />
         <activity
             android:name=".ui.SplashActivity"
-            android:exported="true">
+            android:exported="true"
+            android:configChanges="orientation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

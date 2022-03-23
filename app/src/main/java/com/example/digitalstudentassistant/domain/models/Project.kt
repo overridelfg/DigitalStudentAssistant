@@ -1,12 +1,17 @@
 package com.example.digitalstudentassistant.domain.models
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Project(
-    val id: Int,
     val name : String,
     val purpose: String,
     val description: String,
-    val deadlineDate: String,
+    val deadlineProjectDateFrom: String,
+    val deadlineProjectDateTo: String,
+    val deadlineTeamDateFrom: String,
+    val deadlineTeamDateTo: String,
     val participantsNumber: Int,
-    val recordingPeriod : String,
-    val status: String,
-)
+    val status: String
+) : Parcelable

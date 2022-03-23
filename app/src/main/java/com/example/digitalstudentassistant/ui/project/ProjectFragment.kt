@@ -16,10 +16,12 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.digitalstudentassistant.R
 import com.example.digitalstudentassistant.data.database.ProjectEntity
 import com.example.digitalstudentassistant.databinding.FragmentProjectBinding
 import com.example.digitalstudentassistant.domain.models.Project
+import com.example.digitalstudentassistant.ui.auth.LoginFragmentDirections
 import com.example.digitalstudentassistant.ui.textChanges
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.GlobalScope
@@ -63,14 +65,27 @@ class ProjectFragment : Fragment() {
         val name = binding.projectNameEditText.text.toString()
         val purpose = binding.purposeEditText.text.toString()
         val description = binding.descriptionEditText.text.toString()
-        val deadlineDate = binding.deadlineProjectFromDateEditText.text.toString()
+        val deadlineProjectDateFrom = binding.deadlineProjectFromDateEditText.text.toString()
+        val deadlineProjectDateTo = binding.deadlineProjectToDateEditText.text.toString()
+        val deadlineTeamDateFrom = binding.deadlineTeamFromDateEditText.text.toString()
+        val deadlineTeamDateTo = binding.deadlineTeamToDateEditText.text.toString()
         val participantsNumber = binding.numberOfPeopleEditText.text.toString()
         val status = binding.statusEditText.text.toString()
-        val recordingPeriod = "23.42.1"
         if(inputCheck(name, purpose, description)){
-            val project = ProjectEntity(name, purpose, description, deadlineDate, participantsNumber.toInt(), recordingPeriod, status)
+            val project = ProjectEntity(1,
+                name,
+                purpose,
+                description,
+                deadlineProjectDateFrom,
+                deadlineProjectDateTo,
+                deadlineTeamDateFrom,
+                deadlineTeamDateTo,
+                participantsNumber.toInt(),
+                status)
             projectViewModel.addProject(project)
         }
+        val action = ProjectFragmentDirections.actionProjectFragmentToProjectsMainFragment()
+        findNavController().navigate(action)
     }
 
     private fun setUpStatus(){

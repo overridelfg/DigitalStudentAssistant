@@ -13,7 +13,11 @@
         tools:layout="@layout/fragment_projects_main" >
         <action
             android:id="@+id/action_projectsMainFragment_to_projectFragment"
-            app:destination="@id/projectFragment" />
+            app:destination="@id/projectFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -24,6 +28,12 @@
         android:id="@+id/projectFragment"
         android:name="com.example.digitalstudentassistant.ui.project.ProjectFragment"
         android:label="fragment_project"
-        tools:layout="@layout/fragment_project" />
+        tools:layout="@layout/fragment_project" >
+        <action
+            android:id="@+id/action_projectFragment_to_projectsMainFragment"
+            app:destination="@id/projectsMainFragment"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popExitAnim="@android:anim/slide_out_right" />
+    </fragment>
 
 </navigation>
