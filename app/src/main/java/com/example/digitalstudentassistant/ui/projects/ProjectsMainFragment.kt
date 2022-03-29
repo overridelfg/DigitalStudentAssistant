@@ -30,6 +30,7 @@ class ProjectsMainFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setUpAdapter()
         lifecycle.coroutineScope.launch {
             projectsViewModel.loadAllProjectsFromDB().collect {
                 projectsListAdapter.projectsList.clear()
@@ -41,7 +42,6 @@ class ProjectsMainFragment : Fragment() {
                 projectsListAdapter.notifyDataSetChanged()
             }
         }
-        setUpAdapter()
 
         binding.createProjectButton.setOnClickListener {
             val action = ProjectsMainFragmentDirections.actionProjectsMainFragmentToProjectFragment()

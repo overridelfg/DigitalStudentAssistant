@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
+import com.example.digitalstudentassistant.data.database.ProjectEntity
 import com.example.digitalstudentassistant.databinding.FragmentProjectDetailsViewBinding
 import com.example.digitalstudentassistant.domain.models.Project
 import com.example.digitalstudentassistant.ui.project.ProjectViewModel
@@ -20,6 +21,7 @@ class ProjectDetailsViewFragment : Fragment() {
 
     private lateinit var binding: FragmentProjectDetailsViewBinding
     private lateinit var projectDetailsViewModel : ProjectDetailsViewModel
+    private lateinit var project: Project
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,48 +34,29 @@ class ProjectDetailsViewFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val projectId = arguments?.getString("projectId")!!
-        var projectName = ""
-        var purpose = ""
-        var description = ""
-        var deadlineProjectDateFrom = ""
-        var deadlineProjectDateTo = ""
-        var deadlineTeamDateFrom = ""
-        var deadlineTeamDateTo = ""
-        var participantsNumber = 1
-        var status = ""
-
         lifecycle.coroutineScope.launch {
             projectDetailsViewModel.getProjectFromDB(projectId.toInt()).collect {
                 binding.projectNameTextView.text = it.name
-                projectName = it.name
                 binding.statusTextView.text = it.status
-                status = it.status
                 binding.purposeTextView.text = it.purpose
-                purpose = it.purpose
                 val deadlineProjectDateText = it.deadlineProjectDateFrom + " до " + it.deadlineProjectDateTo
-                deadlineProjectDateFrom = it.deadlineProjectDateFrom
-                deadlineProjectDateTo = it.deadlineProjectDateTo
                 binding.deadlineProjectDateTextView.text = deadlineProjectDateText
                 val deadlineTeamDateText = it.deadlineTeamDateFrom + " до " + it.deadlineTeamDateTo
-                deadlineTeamDateFrom = it.deadlineTeamDateFrom
-                deadlineTeamDateTo = it.deadlineTeamDateTo
                 binding.deadlineTeamDateTextView.text = deadlineTeamDateText
                 binding.descriptionTextView.text = it.description
-                description = it.description
+                project = Project(it.name,
+                    it.purpose,
+                    it.description,
+                    it.deadlineProjectDateFrom,
+                    it.deadlineProjectDateTo,
+                    it.deadlineTeamDateFrom,
+                    it.deadlineTeamDateTo,
+                    it.participantsNumber,
+                    it.status)
+                setUpEditButton(project)
             }
         }
 
-       setUpEditButton(
-           Project(projectName,
-               purpose,
-               description,
-               deadlineProjectDateFrom,
-               deadlineProjectDateTo,
-               deadlineTeamDateFrom,
-               deadlineTeamDateTo,
-               participantsNumber,
-               status)
-       )
     }
 
     private fun setUpEditButton(project: Project){
@@ -82,6 +65,8 @@ class ProjectDetailsViewFragment : Fragment() {
             findNavController().navigate(action)
         }
     }
+
+
 
 
 }

@@ -21,36 +21,27 @@
 
         <EditText
             android:id="@+id/editTextSearch"
-            android:layout_width="0dp"
+            android:drawableStart="@drawable/ic_baseline_search_24"
+            android:drawablePadding="10sp"
+            android:maxLines="1"
+            android:background="@drawable/background_search_edittext"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
-            android:backgroundTint="#CCCCCC"
+            android:layout_marginTop="15sp"
+            android:layout_marginHorizontal="15sp"
             android:hint="Поиск..."
-            android:paddingStart="21dp"
-            android:paddingTop="16dp"
-            android:paddingEnd="21dp"
-            android:paddingBottom="16dp"
+            android:paddingStart="15dp"
+            android:paddingTop="14dp"
+            android:paddingEnd="15dp"
+            android:paddingBottom="14dp"
             android:textColor="#CCCCCC"
             android:textColorHint="#CCCCCC"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/buttonProjectSearch"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
-            android:id="@+id/buttonProjectSearch"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/ic_baseline_search_24"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@+id/editTextSearch"
-            app:layout_constraintEnd_toStartOf="@+id/createProjectButton"
-            app:layout_constraintTop_toTopOf="@+id/editTextSearch" />
+
 
         <ImageButton
             android:id="@+id/createProjectButton"

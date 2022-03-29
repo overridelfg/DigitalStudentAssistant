@@ -6,7 +6,11 @@
         android:enabled="true"
         android:title="Projects"/>
 
-
+    <item
+        android:id="@+id/projectFragment"
+        android:icon="@drawable/ic_add_circle_outline"
+        android:enabled="true"
+        android:title="Add" />
     <item
         android:id="@+id/profileFragment"
         android:enabled="true"
