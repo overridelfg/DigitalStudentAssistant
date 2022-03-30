@@ -13,4 +13,5 @@ data class ProjectResponse(
     val participantsNumber: Int,
     val recordingPeriod : String,
     val status: String,
+    val likeCount : Int
 )

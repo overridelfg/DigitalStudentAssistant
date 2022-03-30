@@ -5,29 +5,25 @@ import androidx.lifecycle.viewModelScope
 import com.example.digitalstudentassistant.data.models.responses.login.LoginResponse
 import com.example.digitalstudentassistant.data.repositories.AuthRepositoryImpl
 import com.example.digitalstudentassistant.domain.OperationResult
+import com.example.digitalstudentassistant.ui.UIState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class AuthViewModel(private val authRepository: AuthRepositoryImpl): ViewModel() {
+class LoginViewModel(private val authRepository: AuthRepositoryImpl): ViewModel() {
 
-    private val loginStateFlow : MutableStateFlow<UIStateLogin> =
-        MutableStateFlow(UIStateLogin.Loading)
+    private val loginStateFlow : MutableStateFlow<UIState<LoginResponse, String?>> =
+        MutableStateFlow(UIState.Loading)
     val publicLoginStateFlow = loginStateFlow.asStateFlow()
 
     fun login(email: String, password: String){
         viewModelScope.launch {
             val result = authRepository.login(email, password)
             loginStateFlow.value = when(result){
-                is OperationResult.Success -> UIStateLogin.Success(result.data)
-                is OperationResult.Error -> UIStateLogin.Error(result.data)
+                is OperationResult.Success -> UIState.Success(result.data)
+                is OperationResult.Error -> UIState.Error(result.data)
             }
         }
     }
 
-    sealed class UIStateLogin {
-        object Loading : UIStateLogin()
-        class Error(val e: String?) : UIStateLogin()
-        class Success(val loginResponse: LoginResponse) : UIStateLogin()
-    }
 }

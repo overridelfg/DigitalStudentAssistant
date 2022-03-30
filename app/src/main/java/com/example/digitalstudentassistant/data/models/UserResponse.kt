@@ -1,6 +1,9 @@
-    package com.example.digitalstudentassistant.data.models.requests
+package com.example.digitalstudentassistant.data.models
 
-data class RegisterRequest(
+import com.example.digitalstudentassistant.domain.models.User
+
+data class UserResponse(
+    val id: Long,
     val email: String,
     val nickname: String,
     val phoneNumber : String,

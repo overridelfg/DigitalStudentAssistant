@@ -89,18 +89,17 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/logoutButton"
         android:layout_width="match_parent"
-        android:layout_height="50sp"
-        android:layout_marginBottom="100sp"
-        android:background="@drawable/background_button_exit"
+        android:layout_height="60sp"
+        android:layout_marginHorizontal="20sp"
+        android:layout_marginTop="30sp"
+        android:layout_marginBottom="30sp"
         android:text="Выйти"
-        android:textAllCaps="false"
-
-        android:textColor="@android:color/holo_red_dark"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:backgroundTint="#1B1B1B"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

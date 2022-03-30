@@ -2,7 +2,6 @@ package com.example.digitalstudentassistant.ui.auth
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.digitalstudentassistant.data.models.responses.login.LoginResponse
 import com.example.digitalstudentassistant.data.repositories.AuthRepositoryImpl
 import com.example.digitalstudentassistant.domain.OperationResult
 import com.example.digitalstudentassistant.ui.UIState
@@ -16,9 +15,24 @@ class RegistrationViewModel(private val authRepository: AuthRepositoryImpl) : Vi
     val publicRegisterStateFlow = registerStateFlow.asStateFlow()
 
 
-    fun register(email: String, nickname: String, password: String){
+    fun register(email: String,
+                 nickname: String,
+                 phoneNumber : String,
+                 firstname: String,
+                 lastname : String,
+                 surname : String,
+                 telegram : String,
+                 password: String){
         viewModelScope.launch {
-            val result = authRepository.register(email, nickname, password)
+            val result = authRepository.register(
+                email,
+                nickname,
+                phoneNumber,
+                firstname,
+                lastname,
+                surname,
+                telegram,
+                password)
             registerStateFlow.value = when(result){
                 is OperationResult.Success -> UIState.Success(result.data)
                 is OperationResult.Error -> UIState.Error(result.data)

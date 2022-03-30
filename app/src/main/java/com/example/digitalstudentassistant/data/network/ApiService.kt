@@ -8,6 +8,7 @@ import okhttp3.ResponseBody
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface ApiService {
 
@@ -22,6 +23,19 @@ interface ApiService {
     ): LoginResponse
 
     @GET("projects")
-    suspend fun getProjects() : List<ProjectResponse>
+    suspend fun getProjects(
+        @Query("Token") token : String
+    ) : List<ProjectResponse>
+
+    @GET("project")
+    suspend fun getProject(
+        @Query("Token") token : String
+    ) : ProjectResponse
+
+    @GET("search")
+    suspend fun getProjectSearch(
+        @Query("project") projectName : String,
+        @Query("Token") token : String
+    ) : List<ProjectResponse>
 
 }
