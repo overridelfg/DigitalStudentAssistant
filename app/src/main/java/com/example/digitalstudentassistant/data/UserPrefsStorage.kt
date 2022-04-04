@@ -69,6 +69,7 @@ class UserPrefsStorage(
                 .putString(PASSWORD_KEY, user.password)
                 .putString(TELEGRAM_KEY, user.telegram)
                 .putString(TOKEN_KEY, user.token)
+                .apply()
         }else{
             sharedPreferences.edit()
                 .remove(ID_KEY)
@@ -81,6 +82,7 @@ class UserPrefsStorage(
                 .remove(PASSWORD_KEY)
                 .remove(TELEGRAM_KEY)
                 .remove(TOKEN_KEY)
+                .apply()
         }
         userStateFlow.value = user
     }

@@ -5,6 +5,7 @@ import com.example.digitalstudentassistant.data.models.requests.LoginRequest
 import com.example.digitalstudentassistant.data.models.requests.RegisterRequest
 import com.example.digitalstudentassistant.data.models.responses.login.LoginResponse
 import com.example.digitalstudentassistant.data.models.responses.login.toUser
+import com.example.digitalstudentassistant.data.network.ApiProvider
 import com.example.digitalstudentassistant.data.network.ApiService
 import com.example.digitalstudentassistant.domain.OperationResult
 import com.example.digitalstudentassistant.domain.models.User
@@ -16,6 +17,8 @@ import kotlinx.coroutines.withContext
 class AuthRepositoryImpl(
     private val apiService: ApiService,
     private val userPrefsStorage: UserPrefsStorage) : AuthRepository{
+
+    private val apiservie2 = ApiProvider.apiService
     override fun loadUserFromPrefs(): User? {
         return userPrefsStorage.loadUserFromPrefs()
     }

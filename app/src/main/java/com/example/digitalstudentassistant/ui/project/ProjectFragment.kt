@@ -128,7 +128,7 @@ class ProjectFragment : Fragment() {
 
                 }else{
                     if(binding.projectNameEditText.text!!.length < 4 || binding.projectNameEditText.text!!.length > 30){
-                        binding.projectNameContainer.errorContentDescription = "Hello"
+
                     }
                 }
             }.launchIn(GlobalScope)

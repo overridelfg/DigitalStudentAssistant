@@ -9,10 +9,12 @@ object ApiProvider {
     private const val BASE_URL = "https://reqres.in/api/"
 
     private fun getRetrofit(): Retrofit {
+
         val logging = HttpLoggingInterceptor()
         logging.level = HttpLoggingInterceptor.Level.BODY
 
         val httpClient = OkHttpClient.Builder()
+//        httpClient.authenticator(authenticator)
         httpClient.addInterceptor(logging)
 
         return Retrofit.Builder()

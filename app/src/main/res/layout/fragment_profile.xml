@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#121212"
-    tools:context=".ui.ProfileFragment">
+    tools:context=".ui.profile.ProfileFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/userDataLayout"
@@ -59,7 +59,7 @@
         app:layout_constraintTop_toBottomOf="@+id/userDataLayout">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/interestsTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
@@ -68,6 +68,15 @@
             android:textSize="25sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chip_group"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
+            app:layout_constraintEnd_toEndOf="@id/interestsTitleTextView"
+            app:layout_constraintStart_toStartOf="@id/interestsTitleTextView"
+            app:layout_constraintTop_toBottomOf="@id/interestsTitleTextView"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
