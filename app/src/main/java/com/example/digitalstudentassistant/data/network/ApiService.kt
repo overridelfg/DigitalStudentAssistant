@@ -58,4 +58,13 @@ interface ApiService {
         @Query("user") user : UserResponse
     ): ResponseBody
 
+    @GET("project/recommendation")
+    suspend fun getRecommendationProjects(
+
+    ): List<ProjectResponse>
+
+    @POST("project/likes")
+    suspend fun addLike(
+         @Query("id") id: String
+    )
 }

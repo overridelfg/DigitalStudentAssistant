@@ -29,6 +29,7 @@ class UserPrefsStorage(
         val surname = sharedPreferences.getString(SURNAME_KEY, null)
         val password = sharedPreferences.getString(PASSWORD_KEY, null)
         val telegram = sharedPreferences.getString(TELEGRAM_KEY, null)
+        val interests = sharedPreferences.getString(INTERESTS_KEY, null)
         val token = sharedPreferences.getString(TOKEN_KEY, null)
         if(id != -1L && !email.isNullOrEmpty()
             && !nickname.isNullOrEmpty()
@@ -38,6 +39,7 @@ class UserPrefsStorage(
             && !surname.isNullOrEmpty()
             && !password.isNullOrEmpty()
             && !telegram.isNullOrEmpty()
+            && !interests.isNullOrEmpty()
             && !token.isNullOrEmpty()){
             return User(
                 id = id,
@@ -49,6 +51,7 @@ class UserPrefsStorage(
                 surname = surname,
                 password = password,
                 telegram = telegram,
+                interests = interests,
                 token = token
                 )
             }
@@ -68,6 +71,7 @@ class UserPrefsStorage(
                 .putString(SURNAME_KEY, user.surname)
                 .putString(PASSWORD_KEY, user.password)
                 .putString(TELEGRAM_KEY, user.telegram)
+                .putString(INTERESTS_KEY, user.interests)
                 .putString(TOKEN_KEY, user.token)
                 .apply()
         }else{
@@ -81,6 +85,7 @@ class UserPrefsStorage(
                 .remove(SURNAME_KEY)
                 .remove(PASSWORD_KEY)
                 .remove(TELEGRAM_KEY)
+                .remove(INTERESTS_KEY)
                 .remove(TOKEN_KEY)
                 .apply()
         }

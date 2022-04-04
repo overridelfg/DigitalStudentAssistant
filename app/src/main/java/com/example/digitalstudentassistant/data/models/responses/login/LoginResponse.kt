@@ -9,6 +9,10 @@ data class LoginResponse(
 )
 
 fun LoginResponse.toUser(): User {
+    var interests = ""
+    for(i in userResponse.interests){
+        interests += "$i:"
+    }
     return User(
         id = userResponse.id,
         email = userResponse.email,
@@ -19,6 +23,7 @@ fun LoginResponse.toUser(): User {
         surname = userResponse.surname,
         password = userResponse.password,
         telegram = userResponse.telegram,
+        interests = interests,
         token = token
     )
 }

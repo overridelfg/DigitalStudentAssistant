@@ -5,6 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Project(
+    val id : Long,
     val name : String,
     val purpose: String,
     val description: String,
@@ -13,5 +14,5 @@ data class Project(
     val deadlineTeamDateFrom: String,
     val deadlineTeamDateTo: String,
     val participantsNumber: Int,
-    val status: String
+    val status: String,
 ) : Parcelable

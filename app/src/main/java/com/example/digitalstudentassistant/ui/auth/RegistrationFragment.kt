@@ -1,27 +1,17 @@
 package com.example.digitalstudentassistant.ui.auth
 
-import android.annotation.SuppressLint
-import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.text.InputType
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
+import androidx.fragment.app.Fragment
 import com.example.digitalstudentassistant.R
 import com.example.digitalstudentassistant.data.UserPrefsStorage
 import com.example.digitalstudentassistant.databinding.FragmentRegistrationBinding
 import com.example.digitalstudentassistant.domain.models.User
 import com.example.digitalstudentassistant.ui.ProjectsActivity
-import com.example.digitalstudentassistant.ui.UIState
 import com.google.android.material.chip.Chip
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 
 
 class RegistrationFragment : Fragment() {
@@ -89,6 +79,15 @@ class RegistrationFragment : Fragment() {
             val lastname = binding.lastnameEditText.text.toString()
             val surname = binding.surnameEditText.text.toString()
             val phone = binding.phoneEditText.text.toString()
+            var interests = ""
+            for (i in 0 until binding.chipGroup.childCount) {
+                val chip = binding.chipGroup.getChildAt(i) as Chip
+                if(i == binding.chipGroup.childCount - 1){
+                    interests += chip.text.toString()
+                }else{
+                    interests += chip.text.toString() + ":"
+                }
+            }
 
             userPrefsStorage.saveUserToPrefs(
                 User(
@@ -101,7 +100,8 @@ class RegistrationFragment : Fragment() {
                     surname = surname,
                     telegram = telegramUrl,
                     password = password,
-                    token = "3sdfsdufishf"
+                    interests = interests,
+                    token = "3sdfsdufishf",
                 )
             )
 

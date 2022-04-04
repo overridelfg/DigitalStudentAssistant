@@ -44,7 +44,8 @@ class ProjectDetailsViewFragment : Fragment() {
                 val deadlineTeamDateText = it.deadlineTeamDateFrom + " до " + it.deadlineTeamDateTo
                 binding.deadlineTeamDateTextView.text = deadlineTeamDateText
                 binding.descriptionTextView.text = it.description
-                project = Project(it.name,
+                project = Project(1,
+                    it.name,
                     it.purpose,
                     it.description,
                     it.deadlineProjectDateFrom,

@@ -10,7 +10,8 @@ data class UserResponse(
     val firstname : String,
     val lastname : String,
     val surname : String?,
-//    val interests : List<String>,
+    val interests : List<String>,
+    val likedProjects : Set<String>,
     val telegram: String,
     val password: String,
 )
