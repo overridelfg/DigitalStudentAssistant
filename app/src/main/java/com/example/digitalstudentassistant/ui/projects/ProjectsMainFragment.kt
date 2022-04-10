@@ -31,6 +31,7 @@ class ProjectsMainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setUpAdapter()
+        setupFloatingButton()
         lifecycle.coroutineScope.launch {
             projectsViewModel.loadAllProjectsFromDB().collect {
                 projectsListAdapter.projectsList.clear()
@@ -43,9 +44,8 @@ class ProjectsMainFragment : Fragment() {
             }
         }
 
-        binding.createProjectButton.setOnClickListener {
-            val action = ProjectsMainFragmentDirections.actionProjectsMainFragmentToProjectFragment()
-            findNavController().navigate(action)
+        binding.searchProjectButton.setOnClickListener {
+
         }
     }
 
@@ -57,5 +57,12 @@ class ProjectsMainFragment : Fragment() {
         }
         binding.projectsRecyclerView.adapter = projectsListAdapter
         binding.projectsRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+    }
+
+    private fun setupFloatingButton(){
+        binding.createProjectButton.setOnClickListener {
+            val action = ProjectsMainFragmentDirections.actionProjectsMainFragmentToProjectFragment()
+            findNavController().navigate(action)
+        }
     }
 }

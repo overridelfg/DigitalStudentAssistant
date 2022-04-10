@@ -20,6 +20,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.digitalstudentassistant.R
 import com.example.digitalstudentassistant.data.database.ProjectEntity
 import com.example.digitalstudentassistant.databinding.FragmentProjectBinding
+
 import com.example.digitalstudentassistant.domain.models.Project
 import com.example.digitalstudentassistant.ui.auth.LoginFragmentDirections
 import com.example.digitalstudentassistant.ui.textChanges

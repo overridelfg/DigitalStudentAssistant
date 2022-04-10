@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/projectsMainFragment"
+    app:startDestination="@id/recommendationFragment"
     android:id="@+id/nav_projects">
 
 
@@ -23,7 +23,14 @@
         android:id="@+id/profileFragment"
         android:name="com.example.digitalstudentassistant.ui.profile.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_profileEditFragment"
+            app:destination="@id/profileEditFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_createCVFragment"
+            app:destination="@id/createCVFragment" />
+    </fragment>
     <fragment
         android:id="@+id/projectFragment"
         android:name="com.example.digitalstudentassistant.ui.project.ProjectFragment"
@@ -36,4 +43,23 @@
             app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
 
+    <fragment
+        android:id="@+id/profileEditFragment"
+        android:name="com.example.digitalstudentassistant.ui.profile.ProfileEditFragment"
+        android:label="fragment_profile_edit"
+        tools:layout="@layout/fragment_profile_edit" />
+    <fragment
+        android:id="@+id/recommendationFragment"
+        android:name="com.example.digitalstudentassistant.ui.recommendation.RecommendationFragment"
+        android:label="fragment_recommendation"
+        tools:layout="@layout/fragment_recommendation" />
+    <fragment
+        android:id="@+id/coursesFragment"
+        android:name="com.example.digitalstudentassistant.ui.courses.CoursesFragment"
+        android:label="fragment_courses"
+        tools:layout="@layout/fragment_courses" />
+    <fragment
+        android:id="@+id/createCVFragment"
+        android:name="com.example.digitalstudentassistant.ui.cv.CreateCVFragment"
+        android:label="CreateCVFragment" />
 </navigation>

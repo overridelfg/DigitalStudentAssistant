@@ -17,8 +17,12 @@ class SplashActivity : AppCompatActivity() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
+        GlobalScope.launch {
+            delay(1000)
             startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+            finish()
+        }
+
 
     }
 }

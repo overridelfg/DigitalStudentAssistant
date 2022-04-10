@@ -16,4 +16,6 @@
     <string name="create_account"><u>Create account</u></string>
     <string name="deadline_project_create">Дедлайн создания проекта</string>
     <string name="deadline_team_date">Дедлайн набора команды</string>
+    <string name="helloDescription">Здесь вы смоежете увидеть проекты, которые мы вам можем порекамендовать исходя из ваших интересов</string>
+    <string name="Courses">Курсы</string>
 </resources>
