@@ -1,6 +1,8 @@
 package com.example.digitalstudentassistant.domain.repositories
 
-interface ProjectsRepository {
+import com.example.digitalstudentassistant.data.models.responses.ProjectResponse
+import com.example.digitalstudentassistant.domain.OperationResult
 
-    suspend fun getProjects()
+interface ProjectsRepository {
+    suspend fun getUserProjects() : OperationResult<List<ProjectResponse>, String?>
 }

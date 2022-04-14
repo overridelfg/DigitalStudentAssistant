@@ -30,6 +30,9 @@
         <action
             android:id="@+id/action_profileFragment_to_createCVFragment"
             app:destination="@id/createCVFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_userProjectsFragment"
+            app:destination="@id/userProjectsFragment" />
     </fragment>
     <fragment
         android:id="@+id/projectFragment"
@@ -61,5 +64,14 @@
     <fragment
         android:id="@+id/createCVFragment"
         android:name="com.example.digitalstudentassistant.ui.cv.CreateCVFragment"
-        android:label="CreateCVFragment" />
+        android:label="CreateCVFragment" >
+        <action
+            android:id="@+id/action_createCVFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userProjectsFragment"
+        android:name="com.example.digitalstudentassistant.ui.profile.userProjects.UserProjectsFragment"
+        android:label="fragment_user_projects"
+        tools:layout="@layout/fragment_user_projects" />
 </navigation>

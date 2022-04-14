@@ -27,7 +27,7 @@ class ProjectRecommendationListAdapter(var context: Context, val click: (Int) ->
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.projectNameTextView.text = projectsList[position].name
         holder.projectDescriptionTextView.text = projectsList[position].description
-        holder.projectStatusTextView.text = projectsList[position].status
+        holder.projectStatusTextView.text = projectsList[position].tags
         holder.itemView.setOnClickListener {
             click.invoke(projectsList[position].id)
         }

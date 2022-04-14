@@ -14,6 +14,7 @@ import com.example.digitalstudentassistant.R
 import com.example.digitalstudentassistant.data.UserPrefsStorage
 import com.example.digitalstudentassistant.databinding.FragmentProfileBinding
 import com.example.digitalstudentassistant.domain.models.CV
+import com.example.digitalstudentassistant.ui.cv.CVActivity
 import com.example.digitalstudentassistant.ui.projectdetails.ProjectDetailsActivity
 import com.example.digitalstudentassistant.ui.projects.ProjectsListAdapter
 import com.google.android.material.chip.Chip
@@ -39,6 +40,7 @@ class ProfileFragment : Fragment() {
         setUpProfileUI()
         setUpButtonExit()
         setUpEditButton()
+        setUpButtonUserProjects()
         setUpAdapter()
         setUpCreateCVButton()
     }
@@ -48,11 +50,9 @@ class ProfileFragment : Fragment() {
     private fun setUpProfileUI(){
         userPrefsStorage = UserPrefsStorage(requireContext())
         val user = userPrefsStorage.loadUserFromPrefs()
-        var interests = mutableListOf<String>()
         if (user != null) {
             binding.emailTextView.text =user.email
-            binding.nameTextView.text = user.firstname + " " + user.lastname + " " + user.surname
-            interests = user.interests.split(":") as MutableList<String>
+            binding.nameTextView.text = user.nickname
         }
     }
 
@@ -76,14 +76,20 @@ class ProfileFragment : Fragment() {
             startActivity(Intent(requireContext(), MainActivity::class.java))
         }
     }
-
+    private fun setUpButtonUserProjects(){
+        val action = ProfileFragmentDirections.actionProfileFragmentToUserProjectsFragment()
+        findNavController().navigate(action)
+    }
     private fun setUpAdapter(){
         cVListAdapter = CVListAdapter{
-            val intent = Intent(requireContext(), ProjectDetailsActivity::class.java)
+            val intent = Intent(requireContext(), CVActivity::class.java)
+            intent.putExtra("courseId", it.nameCV)
             startActivity(intent)
         }
-        cVListAdapter.cVList.add(CV("Android developer"))
-        cVListAdapter.cVList.add(CV("IOS developer"))
+        cVListAdapter.cVList.add(CV("Android developer",
+        "","","","","","","","",""))
+        cVListAdapter.cVList.add(CV("IOS developer",
+            "","","","","","","","",""))
         binding.CVRecyclerView.adapter = cVListAdapter
         binding.CVRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
     }

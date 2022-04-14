@@ -26,11 +26,6 @@ class ProjectDetailsEditingFragment : Fragment() {
         binding.projectNameEditText.setText(args.projectData.name)
         binding.purposeEditText.setText(args.projectData.purpose)
         binding.descriptionEditText.setText(args.projectData.description)
-        binding.deadlineProjectFromDateEditText.setText(args.projectData.deadlineProjectDateFrom)
-        binding.deadlineProjectToDateEditText.setText(args.projectData.deadlineProjectDateTo)
-        binding.deadlineTeamFromDateEditText.setText(args.projectData.deadlineTeamDateFrom)
-        binding.deadlineTeamToDateEditText.setText(args.projectData.deadlineTeamDateTo)
-        binding.numberOfPeopleEditText.setText(args.projectData.participantsNumber.toString())
         binding.statusEditText.setText(args.projectData.status)
     }
 

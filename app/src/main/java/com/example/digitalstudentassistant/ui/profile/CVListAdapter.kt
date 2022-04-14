@@ -11,7 +11,7 @@ import com.example.digitalstudentassistant.data.database.ProjectEntity
 import com.example.digitalstudentassistant.domain.models.CV
 import com.example.digitalstudentassistant.ui.projects.ProjectsListAdapter
 
-class CVListAdapter(val click: (Int) -> Unit) : RecyclerView.Adapter<CVListAdapter.ViewHolder>() {
+class CVListAdapter(val click: (CV) -> Unit) : RecyclerView.Adapter<CVListAdapter.ViewHolder>() {
 
     var cVList: MutableList<CV> = mutableListOf()
         set(value) {
@@ -29,6 +29,9 @@ class CVListAdapter(val click: (Int) -> Unit) : RecyclerView.Adapter<CVListAdapt
         holder.deleteButton.setOnClickListener {
             cVList.removeAt(position)
             notifyItemChanged(position)
+        }
+        holder.itemView.setOnClickListener {
+            click.invoke(cVList[position])
         }
     }
 

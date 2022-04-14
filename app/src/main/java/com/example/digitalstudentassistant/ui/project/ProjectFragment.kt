@@ -18,17 +18,23 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.digitalstudentassistant.R
+import com.example.digitalstudentassistant.data.UserPrefsStorage
 import com.example.digitalstudentassistant.data.database.ProjectEntity
+import com.example.digitalstudentassistant.data.models.requests.ProjectRequest
+import com.example.digitalstudentassistant.data.models.requests.TagRequest
 import com.example.digitalstudentassistant.databinding.FragmentProjectBinding
 
 import com.example.digitalstudentassistant.domain.models.Project
-import com.example.digitalstudentassistant.ui.auth.LoginFragmentDirections
+import com.example.digitalstudentassistant.ui.UIState
+
 import com.example.digitalstudentassistant.ui.textChanges
+import com.google.android.material.chip.Chip
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import java.lang.Error
 
 import java.util.*
 
@@ -38,7 +44,7 @@ class ProjectFragment : Fragment() {
 
     private lateinit var binding: FragmentProjectBinding
     private lateinit var projectViewModel: ProjectViewModel
-
+    private lateinit var userPrefsStorage: UserPrefsStorage
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,89 +55,88 @@ class ProjectFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        setUpDatePicker(binding.deadlineProjectFromDateEditText)
-        setUpDatePicker(binding.deadlineProjectToDateEditText)
-        setUpDatePicker(binding.deadlineTeamFromDateEditText)
-        setUpDatePicker(binding.deadlineTeamToDateEditText)
-        setUpStatus()
-        addProjectValidation()
-
+        setUpTagsList()
+        subscribeCreateProject()
+        userPrefsStorage = UserPrefsStorage(requireContext())
         binding.createButton.setOnClickListener {
             createProject()
+            activity?.onBackPressed()
         }
     }
 
-
     private fun createProject(){
         val name = binding.projectNameEditText.text.toString()
-        val purpose = binding.purposeEditText.text.toString()
+        val communication = binding.communicationEditText.text.toString()
         val description = binding.descriptionEditText.text.toString()
-        val deadlineProjectDateFrom = binding.deadlineProjectFromDateEditText.text.toString()
-        val deadlineProjectDateTo = binding.deadlineProjectToDateEditText.text.toString()
-        val deadlineTeamDateFrom = binding.deadlineTeamFromDateEditText.text.toString()
-        val deadlineTeamDateTo = binding.deadlineTeamToDateEditText.text.toString()
-        val participantsNumber = binding.numberOfPeopleEditText.text.toString()
-        val status = binding.statusEditText.text.toString()
-        if(inputCheck(name, purpose, description)){
-            val project = ProjectEntity(1,
+        val status = binding.tagsEditText.text.toString()
+        var tags = mutableListOf<TagRequest>()
+        for (i in 0 until binding.chipGroup.childCount) {
+            val chip = binding.chipGroup.getChildAt(i) as Chip
+            tags.add(TagRequest(chip.text.toString(), ""))
+        }
+        val projectRequest = ProjectRequest(
+            title = name,
+            description = description,
+            communication = communication,
+            tags = tags,
+            creatorId = "userPrefsStorage.loadUserFromPrefs()!!.id"
+        )
+        if (inputCheck(name, communication, description)) {
+            val project = ProjectEntity(
+                1,
                 name,
-                purpose,
+                communication,
                 description,
-                deadlineProjectDateFrom,
-                deadlineProjectDateTo,
-                deadlineTeamDateFrom,
-                deadlineTeamDateTo,
-                participantsNumber.toInt(),
-                status)
+                status
+            )
             projectViewModel.addProject(project)
+            projectViewModel.createProject(project = projectRequest)
         }
         val action = ProjectFragmentDirections.actionProjectFragmentToProjectsMainFragment()
         findNavController().navigate(action)
     }
 
-    private fun setUpStatus(){
-        val status = listOf("Создан", "Завершен", "Есть вакансии")
-        val adapter = ArrayAdapter(requireContext(), R.layout.status_list_item, status)
-        binding.statusEditText.setAdapter(adapter)
-    }
+    private fun subscribeCreateProject() {
+        projectViewModel.publicProjectCreateStateFlow.onEach {
+            when (it) {
+                is UIState.Loading -> {
 
-    @SuppressLint("SetTextI18n")
-    private fun setUpDatePicker(dateEditText: EditText){
-        val c = Calendar.getInstance()
-        val year = c.get(Calendar.YEAR)
-        val month = c.get(Calendar.MONTH)
-        val day = c.get(Calendar.DAY_OF_MONTH)
-        dateEditText.setOnClickListener {
-            val datePickerDialog = DatePickerDialog(requireContext(), R.style.DialogTheme, DatePickerDialog.OnDateSetListener{
-                    view, year, monthOfYear, dayOfMonth ->
-                var dayOfMonthStr = "$dayOfMonth"
-                var monthOfYearStr = "${monthOfYear+1}"
-                if(dayOfMonth < 10)
-                    dayOfMonthStr = "0$dayOfMonth"
-                if(monthOfYear < 10)
-                    monthOfYearStr = "0$monthOfYear"
-                dateEditText.setText("$dayOfMonthStr.${monthOfYearStr}.$year")
-            }, year, month, day )
-            datePickerDialog.show()
+                }
+                is UIState.Success -> {
+
+                }
+                is UIState.Error -> {
+
+                }
+            }
         }
     }
 
-    private fun inputCheck(name : String, purpose: String, description: String): Boolean{
-        return !(TextUtils.isEmpty(name) && TextUtils.isEmpty(purpose) && TextUtils.isEmpty(description))
+    private fun addChip(text: String) {
+        val chip = Chip(requireContext())
+        chip.text = text
+        chip.setBackgroundResource(R.color.gray)
+        chip.isCloseIconVisible = true
+        chip.setOnCloseIconClickListener {
+            binding.chipGroup.removeView(chip)
+        }
+        binding.chipGroup.addView(chip)
     }
 
-    @ExperimentalCoroutinesApi
-    private fun addProjectValidation(){
-        binding.projectNameEditText.textChanges()
-            .debounce(300)
-            .onEach {
-                if(binding.projectNameEditText.text.isNullOrEmpty()){
-
-                }else{
-                    if(binding.projectNameEditText.text!!.length < 4 || binding.projectNameEditText.text!!.length > 30){
-
-                    }
-                }
-            }.launchIn(GlobalScope)
+    private fun setUpTagsList() {
+        binding.addButton.setOnClickListener {
+            if (!binding.tagsEditText.text.isNullOrBlank()) {
+                addChip(binding.tagsEditText.text.toString())
+                binding.tagsEditText.setText("")
+            }
+        }
     }
+
+    private fun inputCheck(name: String, purpose: String, description: String): Boolean {
+        return !(TextUtils.isEmpty(name) && TextUtils.isEmpty(purpose) && TextUtils.isEmpty(
+            description
+        ))
+    }
+
+
 }

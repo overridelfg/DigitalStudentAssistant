@@ -1,10 +1,10 @@
 package com.example.digitalstudentassistant.data.repositories
 
+import android.content.Context
 import com.example.digitalstudentassistant.data.UserPrefsStorage
 import com.example.digitalstudentassistant.data.models.requests.LoginRequest
 import com.example.digitalstudentassistant.data.models.requests.RegisterRequest
-import com.example.digitalstudentassistant.data.models.responses.login.LoginResponse
-import com.example.digitalstudentassistant.data.models.responses.login.toUser
+import com.example.digitalstudentassistant.data.models.responses.LoginResponse
 import com.example.digitalstudentassistant.data.network.ApiProvider
 import com.example.digitalstudentassistant.data.network.ApiService
 import com.example.digitalstudentassistant.domain.OperationResult
@@ -14,57 +14,76 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 
-class AuthRepositoryImpl(
-    private val apiService: ApiService,
-    private val userPrefsStorage: UserPrefsStorage) : AuthRepository{
+class AuthRepositoryImpl(context: Context) : AuthRepository {
 
-    private val apiservie2 = ApiProvider.apiService
+    private val apiService = ApiProvider(context).apiService
+    private val userPrefsStorage = UserPrefsStorage(context)
     override fun loadUserFromPrefs(): User? {
         return userPrefsStorage.loadUserFromPrefs()
-    }
-
-    override fun observeUser(): Flow<User?> {
-        return userPrefsStorage.observeUser()
     }
 
     override fun saveUserToPrefs(user: User?) {
         userPrefsStorage.saveUserToPrefs(user)
     }
 
-    override suspend fun login(email: String, password: String) : OperationResult<LoginResponse, String?> {
-        return withContext(Dispatchers.IO){
+    override suspend fun login(
+        username: String,
+        password: String
+    ): OperationResult<LoginResponse, String?> {
+        return withContext(Dispatchers.IO) {
             try {
-                val result = apiService.login(LoginRequest(email, password))
-                userPrefsStorage.saveUserToPrefs(result.toUser())
+                val result = apiService.auth(LoginRequest(username, password))
+
+                userPrefsStorage.saveUserToPrefs(
+                    User(
+                        id = "sda",
+                        email = "userInfo.email!!",
+                        nickname = username,
+                        firstname = "userInfo.name",
+                        token = result.access_token
+                    )
+                )
+
                 return@withContext OperationResult.Success(result)
-            }catch (e: Throwable){
+            } catch (e: Throwable) {
                 return@withContext OperationResult.Error(e.message)
             }
         }
     }
 
-    override suspend fun register(email: String,
-                                  nickname: String,
-                                  phoneNumber : String,
-                                  firstname: String,
-                                  lastname : String,
-                                  surname : String,
-                                  telegram : String,
-                                  password: String,
-    ) : OperationResult<LoginResponse, String?> {
-        return withContext(Dispatchers.IO){
+    override suspend fun register(
+        email: String,
+        nickname: String,
+        phoneNumber: String,
+        firstname: String,
+        lastname: String,
+        telegram: String,
+        password: String,
+    ): OperationResult<LoginResponse, String?> {
+        return withContext(Dispatchers.IO) {
             try {
-                val result = apiService.register(RegisterRequest( email,
-                    nickname = nickname,
-                    phoneNumber = phoneNumber,
-                    firstname = firstname,
-                    lastname = lastname,
-                    surname = surname,
-                    telegram = telegram,
-                    password = password))
-                userPrefsStorage.saveUserToPrefs(result.toUser())
+                val result = apiService.register(
+                    RegisterRequest(
+                        email,
+                        nickname = nickname,
+                        phoneNumber = phoneNumber,
+                        firstName = firstname,
+                        lastName = lastname,
+                        telegram = telegram,
+                        password = password
+                    )
+                )
+                userPrefsStorage.saveUserToPrefs(
+                    User(
+                        id = "userInfo.sub",
+                        email = email,
+                        nickname = nickname,
+                        firstname = "userInfo.name",
+                        token = result.access_token
+                    )
+                )
                 return@withContext OperationResult.Success(result)
-            }catch (e: Throwable){
+            } catch (e: Throwable) {
                 return@withContext OperationResult.Error(e.message)
             }
         }

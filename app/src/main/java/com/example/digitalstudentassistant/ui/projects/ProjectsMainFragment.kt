@@ -8,11 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.digitalstudentassistant.databinding.FragmentProjectsMainBinding
+import com.example.digitalstudentassistant.ui.ProjectsActivity
+import com.example.digitalstudentassistant.ui.UIState
 import com.example.digitalstudentassistant.ui.projectdetails.ProjectDetailsActivity
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 class ProjectsMainFragment : Fragment() {
@@ -32,17 +37,8 @@ class ProjectsMainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setUpAdapter()
         setupFloatingButton()
-        lifecycle.coroutineScope.launch {
-            projectsViewModel.loadAllProjectsFromDB().collect {
-                projectsListAdapter.projectsList.clear()
-                for (element in it) {
-                    projectsListAdapter.projectsList.add(
-                        element
-                    )
-                }
-                projectsListAdapter.notifyDataSetChanged()
-            }
-        }
+        subscribeShowAllProjects()
+        projectsViewModel.showAllProjects()
 
         binding.searchProjectButton.setOnClickListener {
 
@@ -59,6 +55,42 @@ class ProjectsMainFragment : Fragment() {
         binding.projectsRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
     }
 
+    private fun subscribeShowAllProjects(){
+        projectsViewModel.projectsStateFlowPublic.onEach {
+            when(it){
+                is UIState.Loading -> {
+                    binding.loadProjectsProgressBar.visibility = View.VISIBLE
+                }
+                is UIState.Success -> {
+                    binding.loadProjectsProgressBar.visibility = View.INVISIBLE
+                    projectsListAdapter.projectsList.clear()
+                    for (element in it.data) {
+                        projectsListAdapter.projectsList.add(
+                            element
+                        )
+                    }
+                    projectsListAdapter.notifyDataSetChanged()
+                }
+                is UIState.Error -> {
+                    binding.loadProjectsProgressBar.visibility = View.INVISIBLE
+                }
+            }
+        }.launchIn(lifecycleScope)
+    }
+
+    private fun db(){
+//        lifecycle.coroutineScope.launch {
+//            projectsViewModel.loadAllProjectsFromDB().collect {
+//                projectsListAdapter.projectsList.clear()
+//                for (element in it) {
+//                    projectsListAdapter.projectsList.add(
+//                        element
+//                    )
+//                }
+//                projectsListAdapter.notifyDataSetChanged()
+//            }
+//        }
+    }
     private fun setupFloatingButton(){
         binding.createProjectButton.setOnClickListener {
             val action = ProjectsMainFragmentDirections.actionProjectsMainFragmentToProjectFragment()

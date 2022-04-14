@@ -1,11 +1,23 @@
 package com.example.digitalstudentassistant.data.repositories
 
+import android.content.Context
+import com.example.digitalstudentassistant.data.UserPrefsStorage
 import com.example.digitalstudentassistant.data.database.ProjectsDao
 import com.example.digitalstudentassistant.data.database.ProjectEntity
+import com.example.digitalstudentassistant.data.models.requests.CVRequest
+import com.example.digitalstudentassistant.data.models.requests.ProjectRequest
+import com.example.digitalstudentassistant.data.models.responses.ProjectResponse
+import com.example.digitalstudentassistant.data.models.responses.toCV
+import com.example.digitalstudentassistant.data.network.ApiProvider
+import com.example.digitalstudentassistant.domain.OperationResult
 import com.example.digitalstudentassistant.domain.repositories.ProjectRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.withContext
 
-class ProjectRepositoryImpl(private val projectsDao: ProjectsDao): ProjectRepository {
+class ProjectRepositoryImpl(private val projectsDao: ProjectsDao, private val context: Context): ProjectRepository {
+    private val apiService =  ApiProvider(context).apiService
+    private val userPrefsStorage = UserPrefsStorage(context)
     override fun getAllProjectsFromDB(): Flow<List<ProjectEntity>> {
         return projectsDao.getProjects()
     }
@@ -25,5 +37,28 @@ class ProjectRepositoryImpl(private val projectsDao: ProjectsDao): ProjectReposi
     override suspend fun deleteProjectDB(projectEntity: ProjectEntity) {
         projectsDao.deleteProject(projectEntity)
     }
+
+    override suspend fun showAllProjects(): OperationResult<List<ProjectResponse>, String?> {
+        return withContext(Dispatchers.IO){
+            try {
+                val result = apiService.getProjects()
+                return@withContext OperationResult.Success(result)
+            }catch (e: Throwable){
+                return@withContext OperationResult.Error(e.message)
+            }
+        }
+    }
+
+    override suspend fun createProject(projectRequest: ProjectRequest) : OperationResult<ProjectResponse, String?> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val result = apiService.createProject("Bearer ${userPrefsStorage.loadUserFromPrefs()?.token.orEmpty()}",projectRequest)
+                return@withContext OperationResult.Success(result)
+            } catch (e: Throwable) {
+                return@withContext OperationResult.Error(e.message)
+            }
+        }
+    }
+
 
 }

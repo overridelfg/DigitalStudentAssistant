@@ -12,7 +12,7 @@ class TokenAuthenticator(private val userPrefsStorage: UserPrefsStorage) : Authe
             return null
         return response.request
             .newBuilder()
-            .header(AUTH_HEADER, userPrefsStorage.loadUserFromPrefs()?.token.orEmpty())
+            .header("Authorization","Bearer ${userPrefsStorage.loadUserFromPrefs()?.token.orEmpty()}")
             .build()
     }
 

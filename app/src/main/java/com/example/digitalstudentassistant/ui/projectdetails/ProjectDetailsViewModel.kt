@@ -15,7 +15,7 @@ class ProjectDetailsViewModel(application: Application) : AndroidViewModel(appli
 
     init {
         val projectsDao = ProjectsDatabase.create(application).projectsDao()
-        projectRepository = ProjectRepositoryImpl(projectsDao)
+        projectRepository = ProjectRepositoryImpl(projectsDao, application.applicationContext)
     }
 
     fun getProjectFromDB(projectId: Int) : Flow<ProjectEntity> {

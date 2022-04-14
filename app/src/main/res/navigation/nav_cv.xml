@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_cv">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_cv"
+    app:startDestination="@id/CVViewFragment">
 
+    <fragment
+        android:id="@+id/CVViewFragment"
+        android:name="com.example.digitalstudentassistant.ui.cv.CVViewFragment"
+        android:label="fragment_c_v_view"
+        tools:layout="@layout/fragment_c_v_view" >
+        <action
+            android:id="@+id/action_CVViewFragment_to_CVEditFragment"
+            app:destination="@id/CVEditFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/CVEditFragment"
+        android:name="com.example.digitalstudentassistant.ui.cv.CVEditFragment"
+        android:label="fragment_c_v_edit"
+        tools:layout="@layout/fragment_c_v_edit" >
+        <argument
+            android:name="CVdata"
+            app:argType="com.example.digitalstudentassistant.domain.models.CV" />
+    </fragment>
 </navigation>

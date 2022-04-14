@@ -1,21 +1,26 @@
 package com.example.digitalstudentassistant.data.network
 
+import android.content.Context
+import com.example.digitalstudentassistant.data.UserPrefsStorage
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object ApiProvider {
-    private const val BASE_URL = "https://reqres.in/api/"
+class ApiProvider(private val context: Context) {
+    private val BASE_URL = "http://95.31.136.34:8080/"
 
     private fun getRetrofit(): Retrofit {
+        val userPrefsStorage : UserPrefsStorage = UserPrefsStorage(context)
+
+        val tokenAuthenticator = TokenAuthenticator(userPrefsStorage)
 
         val logging = HttpLoggingInterceptor()
         logging.level = HttpLoggingInterceptor.Level.BODY
 
         val httpClient = OkHttpClient.Builder()
-//        httpClient.authenticator(authenticator)
         httpClient.addInterceptor(logging)
+
 
         return Retrofit.Builder()
             .baseUrl(BASE_URL)

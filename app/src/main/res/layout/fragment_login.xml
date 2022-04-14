@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#121212"
-    tools:context=".ui.auth.LoginFragment">
+    tools:context=".ui.auth.login.LoginFragment">
 
 
     <TextView
@@ -29,7 +29,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/titleTextView">
 
         <TextView
             android:id="@+id/loginTitleTextView"
@@ -51,7 +51,7 @@
             android:layout_marginHorizontal="20sp"
             android:layout_marginTop="10sp"
             android:textColorHint="@color/white"
-            app:startIconDrawable="@drawable/ic_baseline_email_24"
+            app:startIconDrawable="@drawable/ic_baseline_person_24"
             app:startIconTint="@color/white"
             app:boxStrokeColor="#4885ed"
             app:hintTextColor="#4885ed"
@@ -63,8 +63,8 @@
                 android:id="@+id/emailEditText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="Email"
-                android:inputType="textEmailAddress"
+                android:hint="Username"
+                android:inputType="text"
                 android:lines="1"
                 android:textColor="@color/white"
                 android:textCursorDrawable="@color/white" />

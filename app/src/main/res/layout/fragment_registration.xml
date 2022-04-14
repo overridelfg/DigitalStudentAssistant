@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#121212"
-        tools:context=".ui.auth.RegistrationFragment">
+        tools:context=".ui.auth.register.RegistrationFragment">
 
         <TextView
             android:id="@+id/titleTextView"
@@ -210,30 +210,6 @@
                     android:textCursorDrawable="@color/white" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/surnameContainer"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20sp"
-                android:layout_marginTop="30sp"
-                android:textColorHint="@color/white"
-                app:boxStrokeColor="#4885ed"
-                app:hintTextColor="#4885ed"
-                app:layout_constraintEnd_toEndOf="@id/lastnameContainer"
-                app:layout_constraintStart_toStartOf="@id/lastnameContainer"
-                app:layout_constraintTop_toBottomOf="@id/lastnameContainer">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/surnameEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="Surname"
-                    android:inputType="text"
-                    android:lines="1"
-                    android:textColor="@color/white"
-                    android:textCursorDrawable="@color/white" />
-            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/phoneContainer"
@@ -247,9 +223,9 @@
                 android:textColorHint="@color/white"
                 app:boxStrokeColor="#4885ed"
                 app:hintTextColor="#4885ed"
-                app:layout_constraintEnd_toEndOf="@id/surnameContainer"
-                app:layout_constraintStart_toStartOf="@id/surnameContainer"
-                app:layout_constraintTop_toBottomOf="@id/surnameContainer">
+                app:layout_constraintEnd_toEndOf="@id/lastnameContainer"
+                app:layout_constraintStart_toStartOf="@id/lastnameContainer"
+                app:layout_constraintTop_toBottomOf="@id/lastnameContainer">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/phoneEditText"
@@ -262,51 +238,6 @@
                     android:textCursorDrawable="@color/white" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/interestsContainer"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20sp"
-                android:layout_marginTop="30sp"
-                android:textColorHint="@color/white"
-                app:boxStrokeColor="#4885ed"
-                app:hintTextColor="#4885ed"
-                app:layout_constraintEnd_toStartOf="@id/addButton"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/phoneContainer">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/interestsEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                    android:hint="Your interests"
-                    android:inputType="text"
-                    android:lines="1"
-                    android:textColor="@color/white"
-                    android:textCursorDrawable="@color/white" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/addButton"
-                android:layout_width="60sp"
-                android:layout_height="60sp"
-                android:layout_marginEnd="20sp"
-                android:layout_marginTop="4sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/interestsContainer"
-                android:background="@drawable/ic_baseline_add_24"/>
-            
-             <com.google.android.material.chip.ChipGroup
-                 android:id="@+id/chip_group"
-                 android:layout_width="0dp"
-                 android:layout_height="wrap_content"
-                 android:layout_marginTop="20sp"
-                 app:layout_constraintEnd_toEndOf="@id/interestsContainer"
-                 app:layout_constraintStart_toStartOf="@id/interestsContainer"
-                 app:layout_constraintTop_toBottomOf="@id/interestsContainer"/>
-
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/registrationButton"
                 android:layout_width="match_parent"
@@ -315,19 +246,20 @@
                 android:layout_marginTop="20sp"
                 android:text="Sign up"
                 app:backgroundTint="#4885ed"
-                app:layout_constraintEnd_toEndOf="@+id/chip_group"
-                app:layout_constraintStart_toStartOf="@+id/chip_group"
-                app:layout_constraintTop_toBottomOf="@id/chip_group" />
+                app:layout_constraintEnd_toEndOf="@+id/phoneContainer"
+                app:layout_constraintStart_toStartOf="@+id/phoneContainer"
+                app:layout_constraintTop_toBottomOf="@id/phoneContainer" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--        <ProgressBar-->
-<!--            android:id="@+id/registerProgressBar"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
+        <ProgressBar
+            android:id="@+id/registerProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

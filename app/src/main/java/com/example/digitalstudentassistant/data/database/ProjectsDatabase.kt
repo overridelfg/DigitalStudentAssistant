@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 
 @Database(entities = [
     ProjectEntity::class
-], exportSchema = true, version = 2)
+], exportSchema = true, version = 4)
 abstract class ProjectsDatabase : RoomDatabase() {
 
     abstract fun projectsDao(): ProjectsDao

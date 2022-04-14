@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.digitalstudentassistant.ui.auth.LoginFragment"
+        android:name="com.example.digitalstudentassistant.ui.auth.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/registrationFragment3"
-        android:name="com.example.digitalstudentassistant.ui.auth.RegistrationFragment"
+        android:name="com.example.digitalstudentassistant.ui.auth.register.RegistrationFragment"
         android:label="fragment_registration"
         tools:layout="@layout/fragment_registration" />
 

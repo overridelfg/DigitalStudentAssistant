@@ -1,6 +1,9 @@
 package com.example.digitalstudentassistant.domain.repositories
 
 import com.example.digitalstudentassistant.data.database.ProjectEntity
+import com.example.digitalstudentassistant.data.models.requests.ProjectRequest
+import com.example.digitalstudentassistant.data.models.responses.ProjectResponse
+import com.example.digitalstudentassistant.domain.OperationResult
 import kotlinx.coroutines.flow.Flow
 
 interface ProjectRepository {
@@ -19,4 +22,10 @@ interface ProjectRepository {
     suspend fun updateProjectDB(projectEntity: ProjectEntity)
 
     suspend fun deleteProjectDB(projectEntity: ProjectEntity)
+
+    suspend fun showAllProjects() : OperationResult<List<ProjectResponse>, String?>
+
+    suspend fun createProject(projectRequest: ProjectRequest): OperationResult<ProjectResponse, String?>
+
+
 }

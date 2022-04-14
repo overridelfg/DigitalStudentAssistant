@@ -13,31 +13,16 @@ data class ProjectEntity(
     val projectOwnerId: Int,
     @ColumnInfo(name = "name")
     val name : String,
-    @ColumnInfo(name = "purpose")
-    val purpose: String,
+    @ColumnInfo(name = "communication")
+    val communication: String,
     @ColumnInfo(name = "description")
     val description: String,
-    @ColumnInfo(name = "deadlineProjectDateFrom")
-    val deadlineProjectDateFrom: String,
-    @ColumnInfo(name = "deadlineProjectDateTo: String")
-    val deadlineProjectDateTo: String,
-    @ColumnInfo(name = "deadlineTeamDateFrom")
-    val deadlineTeamDateFrom : String,
-    @ColumnInfo(name = "deadlineProjectDateTo")
-    val deadlineTeamDateTo : String,
-    @ColumnInfo(name = "participantsNumber")
-    val participantsNumber: Int,
     @ColumnInfo(name = "status")
-    val status: String,
+    val tags: String,
 ){
     constructor(projectOwnerId: Int,
                     name : String,
-                    purpose: String,
+                    communication: String,
                     description: String,
-                    deadlineProjectDateFrom: String,
-                    deadlineProjectDateTo: String,
-                    deadlineTeamDateFrom: String,
-                    deadlineTeamDateTo: String,
-                    participantsNumber: Int,
-                    status: String) : this(0, projectOwnerId, name, purpose, description, deadlineProjectDateFrom, deadlineProjectDateTo, deadlineTeamDateFrom, deadlineTeamDateTo, participantsNumber, status)
+                    tags: String) : this(0, projectOwnerId, name, communication, description, tags)
 }

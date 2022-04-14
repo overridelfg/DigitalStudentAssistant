@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:fillViewport="true">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#121212"
@@ -120,26 +120,69 @@
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
             android:text="Избранные проекты"
+            android:layout_marginTop="15sp"
             android:textColor="@color/white"
             android:textSize="25sp"
+            app:layout_constraintEnd_toStartOf="@+id/likedProjectsButton"
+            app:layout_constraintLeft_toRightOf="@id/likedProjectsButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/createCVButton" />
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/likedProjectsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Перейти"
+            android:layout_marginTop="10sp"
+            android:layout_marginEnd="20sp"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            app:backgroundTint="#1B1B1B"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/createCVButton" />
+
+        <TextView
+            android:id="@+id/userProjectTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25sp"
+            android:layout_marginTop="15sp"
+            android:layout_marginBottom="20dp"
+            android:text="Ваши проекты"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            app:layout_constraintLeft_toRightOf = "@+id/userProjectButton"
+            app:layout_constraintEnd_toStartOf="@+id/userProjectButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/userProjectButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Перейти"
+            android:layout_marginTop="10sp"
+            android:layout_marginEnd="20sp"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            app:backgroundTint="#1B1B1B"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"/>
         <com.google.android.material.button.MaterialButton
             android:id="@+id/logoutButton"
             android:layout_width="match_parent"
             android:layout_height="60sp"
             android:layout_marginHorizontal="20sp"
-            android:layout_marginTop="30sp"
             android:layout_marginBottom="30sp"
             android:text="Выйти"
             app:backgroundTint="#1B1B1B"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userProjectTitle" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

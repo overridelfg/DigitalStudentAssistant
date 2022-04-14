@@ -38,23 +38,14 @@ class ProjectDetailsViewFragment : Fragment() {
         lifecycle.coroutineScope.launch {
             projectDetailsViewModel.getProjectFromDB(projectId.toInt()).collect {
                 binding.projectNameTextView.text = it.name
-                binding.statusTextView.text = it.status
-                binding.purposeTextView.text = it.purpose
-                val deadlineProjectDateText = it.deadlineProjectDateFrom + " до " + it.deadlineProjectDateTo
-                binding.deadlineProjectDateTextView.text = deadlineProjectDateText
-                val deadlineTeamDateText = it.deadlineTeamDateFrom + " до " + it.deadlineTeamDateTo
-                binding.deadlineTeamDateTextView.text = deadlineTeamDateText
+                binding.statusTextView.text = it.communication
+                binding.purposeTextView.text = it.tags
                 binding.descriptionTextView.text = it.description
                 project = Project(1,
                     it.name,
-                    it.purpose,
+                    it.communication,
                     it.description,
-                    it.deadlineProjectDateFrom,
-                    it.deadlineProjectDateTo,
-                    it.deadlineTeamDateFrom,
-                    it.deadlineTeamDateTo,
-                    it.participantsNumber,
-                    it.status)
+                    it.tags)
                 setUpEditButton(project)
             }
         }
@@ -63,9 +54,10 @@ class ProjectDetailsViewFragment : Fragment() {
 
     private fun setUpEditButton(project: Project){
         val creatorId = 3
-        val userId = 4
+        val userId = 3
         if(creatorId == userId){
             binding.editButton.setOnClickListener {
+                binding.editButton.isVisible = true
                 val action = ProjectDetailsViewFragmentDirections.actionProjectDetailsViewFragmentToProjectDetailsEditingFragment(project)
                 findNavController().navigate(action)
             }

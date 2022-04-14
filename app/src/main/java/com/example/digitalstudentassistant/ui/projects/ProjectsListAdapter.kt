@@ -10,12 +10,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.digitalstudentassistant.R
 import com.example.digitalstudentassistant.data.database.ProjectEntity
+import com.example.digitalstudentassistant.data.models.responses.ProjectResponse
 import com.example.digitalstudentassistant.domain.models.Project
 import com.google.android.material.chip.Chip
 import org.w3c.dom.Text
 
-class ProjectsListAdapter(var context: Context, val click: (Int) -> Unit) : RecyclerView.Adapter<ProjectsListAdapter.ViewHolder>() {
-    var projectsList: MutableList<ProjectEntity> = mutableListOf()
+class ProjectsListAdapter(var context: Context, val click: (String) -> Unit) : RecyclerView.Adapter<ProjectsListAdapter.ViewHolder>() {
+    var projectsList: MutableList<ProjectResponse> = mutableListOf()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -28,9 +29,9 @@ class ProjectsListAdapter(var context: Context, val click: (Int) -> Unit) : Recy
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.projectNameTextView.text = projectsList[position].name
+        holder.projectNameTextView.text = projectsList[position].title
         holder.projectDescriptionTextView.text = projectsList[position].description
-        holder.projectStatusTextView.text = projectsList[position].status
+//        holder.projectStatusTextView.text = projectsList[position].tags
         holder.itemView.setOnClickListener {
             click.invoke(projectsList[position].id)
         }

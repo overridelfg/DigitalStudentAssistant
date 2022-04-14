@@ -5,8 +5,11 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.digitalstudentassistant.data.database.ProjectEntity
 import com.example.digitalstudentassistant.data.database.ProjectsDatabase
+import com.example.digitalstudentassistant.data.models.responses.ProjectResponse
 import com.example.digitalstudentassistant.data.repositories.ProjectRepositoryImpl
+import com.example.digitalstudentassistant.domain.OperationResult
 import com.example.digitalstudentassistant.domain.repositories.ProjectRepository
+import com.example.digitalstudentassistant.ui.UIState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
@@ -18,23 +21,29 @@ import kotlinx.coroutines.launch
 class ProjectsViewModel(application: Application) : AndroidViewModel(application) {
 
     private val projectRepository: ProjectRepository
-    private val projectsStateFlow: MutableStateFlow<UIState> =
-        MutableStateFlow(UIState.Loading)
+    private val projectsStateFlow: MutableStateFlow<UIState<List<ProjectResponse>, String?>> =
+        MutableStateFlow(UIState.NothingDo)
     val projectsStateFlowPublic = projectsStateFlow.asStateFlow()
 
     init {
         val projectsDao = ProjectsDatabase.create(application).projectsDao()
-        projectRepository = ProjectRepositoryImpl(projectsDao)
+        projectRepository = ProjectRepositoryImpl(projectsDao, application.applicationContext)
     }
 
     fun loadAllProjectsFromDB() : Flow<List<ProjectEntity>> {
         return projectRepository.getAllProjectsFromDB()
     }
 
-    sealed class UIState {
-        object Loading : UIState()
-        class Error(val e: Exception) : UIState()
-        class Success(val projects: List<ProjectEntity>) : UIState()
+    fun showAllProjects(){
+        viewModelScope.launch {
+            projectsStateFlow.value = UIState.Loading
+            val result = projectRepository.showAllProjects()
+            projectsStateFlow.value = when(result){
+                is OperationResult.Success -> UIState.Success(result.data)
+                is OperationResult.Error -> UIState.Error(result.data)
+            }
+        }
     }
+
 
 }

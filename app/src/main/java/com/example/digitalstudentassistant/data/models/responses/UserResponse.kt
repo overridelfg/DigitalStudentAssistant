@@ -1,4 +1,4 @@
-package com.example.digitalstudentassistant.data.models
+package com.example.digitalstudentassistant.data.models.responses
 
 import com.example.digitalstudentassistant.domain.models.User
 
