@@ -30,10 +30,10 @@ class UserProjectsListAdapter (var context: Context, val click: (ProjectResponse
         holder.projectNameTextView.text = projectsList[position].title
         holder.projectDescriptionTextView.text = projectsList[position].description
         var tagsList = projectsList[position].tags
-        var tagsStringList = mutableListOf<String>()
-        for (tag in tagsList){
-            holder.projectStatusTextView.text = holder.projectStatusTextView.text.toString() + tag.name + "\n"
-        }
+//        var tagsStringList = mutableListOf<String>()
+//        for (tag in tagsList){
+//            holder.projectStatusTextView.text = holder.projectStatusTextView.text.toString() + projectsList[position].tags. + "\n"
+//        }
         holder.itemView.setOnClickListener {
             click.invoke(projectsList[position])
         }

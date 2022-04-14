@@ -13,6 +13,7 @@ import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -29,6 +30,7 @@ import com.example.digitalstudentassistant.ui.UIState
 
 import com.example.digitalstudentassistant.ui.textChanges
 import com.google.android.material.chip.Chip
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.debounce
@@ -60,7 +62,6 @@ class ProjectFragment : Fragment() {
         userPrefsStorage = UserPrefsStorage(requireContext())
         binding.createButton.setOnClickListener {
             createProject()
-            activity?.onBackPressed()
         }
     }
 
@@ -89,27 +90,32 @@ class ProjectFragment : Fragment() {
                 description,
                 status
             )
-            projectViewModel.addProject(project)
+//            projectViewModel.addProject(project)
             projectViewModel.createProject(project = projectRequest)
+
         }
-        val action = ProjectFragmentDirections.actionProjectFragmentToProjectsMainFragment()
-        findNavController().navigate(action)
+
     }
 
     private fun subscribeCreateProject() {
         projectViewModel.publicProjectCreateStateFlow.onEach {
             when (it) {
                 is UIState.Loading -> {
-
+                    binding.createProgressBar.isVisible = true
                 }
                 is UIState.Success -> {
-
+                    binding.createProgressBar.isVisible = false
+                    val action = ProjectFragmentDirections.actionProjectFragmentToProjectsMainFragment()
+                    findNavController().navigate(action)
                 }
                 is UIState.Error -> {
-
+                    binding.createProgressBar.isVisible = false
+                    Snackbar.make(requireView(), it.data.toString(), Snackbar.LENGTH_LONG)
+                        .setAction("OK") {
+                        }.show()
                 }
             }
-        }
+        }.launchIn(lifecycleScope)
     }
 
     private fun addChip(text: String) {

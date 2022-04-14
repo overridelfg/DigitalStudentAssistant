@@ -6,7 +6,9 @@ import com.example.digitalstudentassistant.data.database.ProjectsDao
 import com.example.digitalstudentassistant.data.database.ProjectEntity
 import com.example.digitalstudentassistant.data.models.requests.CVRequest
 import com.example.digitalstudentassistant.data.models.requests.ProjectRequest
+import com.example.digitalstudentassistant.data.models.requests.UpdateProjectRequest
 import com.example.digitalstudentassistant.data.models.responses.ProjectResponse
+import com.example.digitalstudentassistant.data.models.responses.project.UserProjectResponse
 import com.example.digitalstudentassistant.data.models.responses.toCV
 import com.example.digitalstudentassistant.data.network.ApiProvider
 import com.example.digitalstudentassistant.domain.OperationResult
@@ -59,6 +61,73 @@ class ProjectRepositoryImpl(private val projectsDao: ProjectsDao, private val co
             }
         }
     }
+
+    override suspend fun getProjectSearch(key: String): OperationResult<UserProjectResponse, String?> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val result = apiService.getProjectSearch(key)
+                return@withContext OperationResult.Success(result)
+            } catch (e: Throwable) {
+                return@withContext OperationResult.Error(e.message)
+            }
+        }
+    }
+
+    override suspend fun addLike(projectId: String): OperationResult<ProjectResponse, String?> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val result = apiService.addLike(
+                    "Bearer ${userPrefsStorage.loadUserFromPrefs()?.token.orEmpty()}",
+                    projectId
+                )
+                return@withContext OperationResult.Success(result)
+            } catch (e: Throwable) {
+                return@withContext OperationResult.Error(e.message)
+            }
+        }
+    }
+
+    override suspend fun removeLike(projectId: String): OperationResult<ProjectResponse, String?> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val result = apiService.removeLike(
+                    "Bearer ${userPrefsStorage.loadUserFromPrefs()?.token.orEmpty()}",
+                    projectId
+                )
+                return@withContext OperationResult.Success(result)
+            } catch (e: Throwable) {
+                return@withContext OperationResult.Error(e.message)
+            }
+        }
+    }
+
+    override suspend fun updateProject(
+        idProject: String,
+        updateProjectRequest: UpdateProjectRequest
+    ): OperationResult<ProjectResponse, String?> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val result = apiService.updateProject(
+                    "Bearer ${userPrefsStorage.loadUserFromPrefs()?.token.orEmpty()}",
+                    idProject, updateProjectRequest
+                )
+                return@withContext OperationResult.Success(result)
+            } catch (e: Throwable) {
+                return@withContext OperationResult.Error(e.message)
+            }
+        }
+    }
+
+//    override suspend fun addLike(projectId: String): OperationResult<UserProjectResponse, String?> {
+//        return withContext(Dispatchers.IO) {
+//            try {
+//                val result = apiService.addLike("Bearer ${userPrefsStorage.loadUserFromPrefs()?.token.orEmpty()}", "")
+//                return@withContext OperationResult.Success(result)
+//            } catch (e: Throwable) {
+//                return@withContext OperationResult.Error(e.message)
+//            }
+//        }
+//    }
 
 
 }

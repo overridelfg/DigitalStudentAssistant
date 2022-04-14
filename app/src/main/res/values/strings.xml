@@ -18,4 +18,5 @@
     <string name="deadline_team_date">Дедлайн набора команды</string>
     <string name="helloDescription">Здесь вы смоежете увидеть проекты, которые мы вам можем порекамендовать исходя из ваших интересов</string>
     <string name="Courses">Курсы</string>
+    <string name="instructions">Пока что вы не создали еще ни один проект. Для того чтобы это сделать перейдите на вкладку поиск и нажмите на кнопку создать</string>
 </resources>

@@ -24,7 +24,7 @@ class ProjectViewModel(application: Application) : AndroidViewModel(application)
 
     private val projectRepository: ProjectRepository
     private val projectCreateStateFlow : MutableStateFlow<UIState<ProjectResponse, String?>> =
-        MutableStateFlow(UIState.Loading)
+        MutableStateFlow(UIState.NothingDo)
     val publicProjectCreateStateFlow = projectCreateStateFlow.asStateFlow()
 
     init {
@@ -40,6 +40,7 @@ class ProjectViewModel(application: Application) : AndroidViewModel(application)
 
     fun createProject(project: ProjectRequest){
         viewModelScope.launch{
+            projectCreateStateFlow.value = UIState.Loading
             val result = projectRepository.createProject(project)
             projectCreateStateFlow.value = when(result){
                 is OperationResult.Success -> UIState.Success(result.data)

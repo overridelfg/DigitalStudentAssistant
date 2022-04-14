@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -58,6 +59,9 @@ class UserProjectsFragment : Fragment() {
                 is UIState.Success -> {
                     binding.loadProjectsProgressBar.visibility = View.INVISIBLE
                     projectsListAdapter.projectsList.clear()
+                    if(it.data.isNotEmpty()){
+                        binding.instructionsTextView.isVisible = false
+                    }
                     for (element in it.data) {
                         projectsListAdapter.projectsList.add(
                             element

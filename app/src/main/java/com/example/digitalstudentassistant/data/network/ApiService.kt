@@ -1,11 +1,9 @@
 package com.example.digitalstudentassistant.data.network
 
-import com.example.digitalstudentassistant.data.models.requests.LoginRequest
-import com.example.digitalstudentassistant.data.models.requests.CVRequest
-import com.example.digitalstudentassistant.data.models.requests.ProjectRequest
-import com.example.digitalstudentassistant.data.models.requests.RegisterRequest
+import com.example.digitalstudentassistant.data.models.requests.*
 import com.example.digitalstudentassistant.data.models.responses.*
 import com.example.digitalstudentassistant.data.models.responses.jwt.TokenResponse
+import com.example.digitalstudentassistant.data.models.responses.project.UserProjectResponse
 import okhttp3.ResponseBody
 import retrofit2.http.*
 
@@ -41,59 +39,47 @@ interface ApiService {
     @GET("api/project/getCreated")
     suspend fun getUserProjects(
         @Header("Authorization") auth: String
-    ) : List<ProjectResponse>
-
-    @GET("project/{id}")
-    suspend fun getProject(
-        @Path("id", encoded = true) id : Int,
-        @Query("Token") token : String
-    ) : ProjectResponse
-
+    ) : UserProjectResponse
 
     @POST("api/project/search")
     suspend fun getProjectSearch(
         @Query("key") key : String,
-    ) : List<ProjectResponse>
+    ) : UserProjectResponse
 
-    @POST("project/update")
+    @POST("api/project/like/{idProject}")
+    suspend fun addLike(
+        @Header("Authorization") auth: String,
+        @Path("idProject") idProject: String
+    ) : ProjectResponse
+
+    @POST("api/project/removeLike/{idProject}")
+    suspend fun removeLike(
+        @Query("Authorization") token : String,
+        @Path("idProject") idProject: String
+    ): ProjectResponse
+
+    @POST("api/project/updateProject")
     suspend fun updateProject(
-        @Query("id", encoded = true) id : Int
-    ): ResponseBody
-
-    @DELETE("project/delete")
-    suspend fun deleteProject(
-        @Query("id") id: String
-    ): ResponseBody
-
-    @POST("project/enroll")
-    suspend fun enrollProject(
-        @Query("projectId") id : Int,
-        @Query("user") user : UserResponse
-    ): ResponseBody
+        @Header("Authorization") auth: String,
+        @Query("idProject") idProject: String,
+        @Body updateProjectRequest: UpdateProjectRequest
+    ): ProjectResponse
 
     @GET("api/project/recommend")
     suspend fun getRecommendationProjects(
         @Query("Token") token : String
     ): MutableList<ProjectResponse>
 
-    @POST("project/like/{idProject}")
-    suspend fun addLike(
-        @Query("Token") token : String,
-        @Path("projectId") idProject: String
-    )
 
-    @POST("api/project/removeLike/{idProject}")
-    suspend fun removeLike(
-        @Query("Token") token : String,
-        @Path("idProject") idProject: String
-    )
+
+
 
     @GET("cv/all")
     suspend fun getAllCV() : List<CVResponse>
 
     @POST("cv/add")
     suspend fun addCV(
-        @Query("Token") token : String,
-        @Query("cv") cv: CVRequest
+        @Header("Authorization") auth: String,
+        @Body cv: CVRequest
     ) : CVResponse
 }

@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.digitalstudentassistant.data.models.responses.ProjectResponse
+import com.example.digitalstudentassistant.data.models.responses.project.toTagResponse
 import com.example.digitalstudentassistant.data.repositories.ProjectsRepositoryImpl
 import com.example.digitalstudentassistant.domain.OperationResult
 import com.example.digitalstudentassistant.domain.repositories.ProjectsRepository
@@ -22,8 +23,21 @@ class UserProjectsViewModel(application: Application) : AndroidViewModel(applica
         viewModelScope.launch {
             userProjectsStateFlow.value = UIState.Loading
             val result = projectsRepository.getUserProjects()
+            val projectList = mutableListOf<ProjectResponse>()
             userProjectsStateFlow.value = when(result){
-                is OperationResult.Success -> UIState.Success(result.data)
+                is OperationResult.Success -> {
+                    for (i in result.data.indices){
+                        projectList.add(ProjectResponse(result.data[i].body.id,
+                            result.data[i].body.title,
+                            result.data[i].body.description,
+                            result.data[i].body.communication,
+                            result.data[i].body.creatorId,
+                            result.data[i].body.tags.map {
+                                it.toTagResponse()
+                            }))
+                    }
+                    UIState.Success(projectList)
+                }
                 is OperationResult.Error -> UIState.Error(result.data)
             }
         }

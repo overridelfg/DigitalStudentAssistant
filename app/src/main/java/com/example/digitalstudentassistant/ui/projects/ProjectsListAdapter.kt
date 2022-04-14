@@ -15,7 +15,7 @@ import com.example.digitalstudentassistant.domain.models.Project
 import com.google.android.material.chip.Chip
 import org.w3c.dom.Text
 
-class ProjectsListAdapter(var context: Context, val click: (String) -> Unit) : RecyclerView.Adapter<ProjectsListAdapter.ViewHolder>() {
+class ProjectsListAdapter(var context: Context, val click: (ProjectResponse) -> Unit) : RecyclerView.Adapter<ProjectsListAdapter.ViewHolder>() {
     var projectsList: MutableList<ProjectResponse> = mutableListOf()
         set(value) {
             field = value
@@ -33,7 +33,7 @@ class ProjectsListAdapter(var context: Context, val click: (String) -> Unit) : R
         holder.projectDescriptionTextView.text = projectsList[position].description
 //        holder.projectStatusTextView.text = projectsList[position].tags
         holder.itemView.setOnClickListener {
-            click.invoke(projectsList[position].id)
+            click.invoke(projectsList[position])
         }
         holder.likeChip.setOnClickListener {
             holder.likeChip.isSelected = !holder.likeChip.isSelected

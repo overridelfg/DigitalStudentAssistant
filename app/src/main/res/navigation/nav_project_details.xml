@@ -19,8 +19,23 @@
         android:label="fragment_project_details_editing"
         tools:layout="@layout/fragment_project_details_editing" >
         <argument
-            android:name="projectData"
-            app:argType="com.example.digitalstudentassistant.domain.models.Project" />
+            android:name="projectId"
+            app:argType="string" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="description"
+            app:argType="string" />
+        <argument
+            android:name="communication"
+            app:argType="string" />
+        <argument
+            android:name="tags"
+            app:argType="string" />
+        <argument
+            android:name="creatorId"
+            app:argType="string" />
     </fragment>
 
 </navigation>

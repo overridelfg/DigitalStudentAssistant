@@ -39,7 +39,6 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setUpProfileUI()
         setUpButtonExit()
-        setUpEditButton()
         setUpButtonUserProjects()
         setUpAdapter()
         setUpCreateCVButton()
@@ -56,12 +55,6 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun setUpEditButton(){
-        binding.editProfileButton.setOnClickListener {
-            val action = ProfileFragmentDirections.actionProfileFragmentToProfileEditFragment()
-            findNavController().navigate(action)
-        }
-    }
 
     private fun setUpCreateCVButton(){
         binding.createCVButton.setOnClickListener {
@@ -77,8 +70,10 @@ class ProfileFragment : Fragment() {
         }
     }
     private fun setUpButtonUserProjects(){
-        val action = ProfileFragmentDirections.actionProfileFragmentToUserProjectsFragment()
-        findNavController().navigate(action)
+        binding.userProjectButton.setOnClickListener {
+            val action = ProfileFragmentDirections.actionProfileFragmentToUserProjectsFragment()
+            findNavController().navigate(action)
+        }
     }
     private fun setUpAdapter(){
         cVListAdapter = CVListAdapter{

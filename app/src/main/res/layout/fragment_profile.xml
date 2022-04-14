@@ -31,25 +31,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/editProfileButton"
-                android:layout_width="40sp"
-                android:layout_height="40sp"
-                android:layout_marginHorizontal="10sp"
-                android:background="@drawable/ic_baseline_edit_24"
-                app:layout_constraintBottom_toBottomOf="@id/editBoxImageView"
-                app:layout_constraintEnd_toEndOf="@id/editBoxImageView"
-                app:layout_constraintStart_toStartOf="@id/editBoxImageView"
-                app:layout_constraintTop_toTopOf="@id/editBoxImageView" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/editBoxImageView"
-                android:layout_width="67sp"
-                android:layout_height="67sp"
-                android:layout_marginHorizontal="10sp"
-                android:background="@drawable/ic_baseline_check_box_outline_blank_24"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/nameTextView"
