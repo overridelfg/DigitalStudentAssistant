@@ -8,7 +8,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class ApiProvider(private val context: Context) {
-    private val BASE_URL = "http://95.31.136.34:8080/"
+    private val BASE_URL = "http://95.31.136.34:8081/"
 
     private fun getRetrofit(): Retrofit {
         val userPrefsStorage : UserPrefsStorage = UserPrefsStorage(context)

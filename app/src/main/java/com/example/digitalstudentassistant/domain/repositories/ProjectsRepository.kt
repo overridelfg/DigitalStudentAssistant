@@ -5,7 +5,9 @@ import com.example.digitalstudentassistant.data.models.responses.project.UserPro
 import com.example.digitalstudentassistant.domain.OperationResult
 
 interface ProjectsRepository {
-    suspend fun getUserProjects() : OperationResult<UserProjectResponse, String?>
+    suspend fun getUserProjects() : OperationResult<List<ProjectResponse>, String?>
 
-//    suspend fun getLikedProjects() : OperationResult<List<ProjectResponse>, >
+    suspend fun getLiked() : OperationResult<List<ProjectResponse>, String?>
+
+    suspend fun getRecommendProjects() : OperationResult<List<ProjectResponse>, String?>
 }

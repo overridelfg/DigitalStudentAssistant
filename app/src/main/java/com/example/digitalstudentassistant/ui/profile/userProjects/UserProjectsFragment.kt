@@ -42,7 +42,20 @@ class UserProjectsFragment : Fragment() {
     private fun setUpAdapter(){
         projectsListAdapter = UserProjectsListAdapter(requireContext()){
             val intent = Intent(requireContext(), ProjectDetailsActivity::class.java)
-            intent.putExtra("projectId", it.toString())
+            intent.putExtra("projectId", it.id)
+            intent.putExtra("title", it.title)
+            intent.putExtra("description", it.description)
+            intent.putExtra("creatorId", it.creatorId)
+            intent.putExtra("communication", it.communication)
+            var tags = ""
+            for(i in it.tags.indices){
+                if(i == it.tags.size - 1){
+                    tags += it.tags[i].name
+                }else{
+                    tags += it.tags[i].name + ":"
+                }
+            }
+            intent.putExtra("tags", tags)
             startActivity(intent)
         }
         binding.userProjectsRecyclerView.adapter = projectsListAdapter

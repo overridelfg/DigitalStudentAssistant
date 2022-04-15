@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.digitalstudentassistant.data.database.ProjectEntity
 import com.example.digitalstudentassistant.data.database.ProjectsDatabase
 import com.example.digitalstudentassistant.data.models.requests.UpdateProjectRequest
+import com.example.digitalstudentassistant.data.models.responses.Likes
 import com.example.digitalstudentassistant.data.models.responses.ProjectResponse
 import com.example.digitalstudentassistant.data.repositories.ProjectRepositoryImpl
 import com.example.digitalstudentassistant.domain.OperationResult
@@ -30,6 +31,10 @@ class ProjectDetailsViewModel(application: Application) : AndroidViewModel(appli
     private val removeLikeStateFlow: MutableStateFlow<UIState<ProjectResponse, String?>> =
         MutableStateFlow(UIState.NothingDo)
     val removeLikeStateFlowPublic = removeLikeStateFlow.asStateFlow()
+
+    private val showLikesStateFlow: MutableStateFlow<UIState<Likes, String?>> =
+        MutableStateFlow(UIState.NothingDo)
+    val showLikesStateFlowPublic = showLikesStateFlow.asStateFlow()
 
 
     init {
@@ -66,8 +71,19 @@ class ProjectDetailsViewModel(application: Application) : AndroidViewModel(appli
     fun removeLike(idProject: String){
         viewModelScope.launch {
             removeLikeStateFlow.value = UIState.Loading
-            val result = projectRepository.addLike(projectId = idProject)
+            val result = projectRepository.removeLike(projectId = idProject)
             removeLikeStateFlow.value = when(result){
+                is OperationResult.Success -> UIState.Success(result.data)
+                is OperationResult.Error -> UIState.Error(result.data)
+            }
+        }
+    }
+
+    fun showLikes(idProject: String){
+        viewModelScope.launch {
+            showLikesStateFlow.value = UIState.Loading
+            val result = projectRepository.showLikes(idProject)
+            showLikesStateFlow.value = when(result){
                 is OperationResult.Success -> UIState.Success(result.data)
                 is OperationResult.Error -> UIState.Error(result.data)
             }

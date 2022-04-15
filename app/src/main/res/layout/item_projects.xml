@@ -27,58 +27,30 @@
 
             <TextView
                 android:id="@+id/projectNameTextView"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10sp"
                 android:layout_marginTop="10sp"
                 android:layout_marginEnd="35sp"
+                android:layout_marginHorizontal="10sp"
                 android:layout_alignParentStart="true"
-                android:layout_toStartOf="@id/statusTextView"
                 android:text="Name"
                 android:textColor="@color/white"
                 android:textSize="15sp" />
             <TextView
                 android:id="@+id/descriptionTextView"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/projectNameTextView"
                 android:layout_marginStart="10sp"
                 android:layout_marginTop="10sp"
                 android:layout_marginEnd="10sp"
                 android:layout_alignParentStart="true"
-                android:layout_toStartOf="@id/likeChip"
                 android:text="Description"
                 android:layout_marginBottom="5sp"
                 android:textColor="@color/white"
                 android:textSize="15sp" />
-            <TextView
-                android:id="@+id/statusTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="15sp"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="10sp"
-                android:layout_marginTop="10sp"
-                android:text="Status"
-                android:textColor="@color/white"
-                android:textSize="15sp" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/likeChip"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                app:chipIcon="@drawable/ic_outline_thumb_up"
-                app:chipStartPadding="10sp"
-                android:text="10"
-                android:textSize="20sp"
-                app:chipCornerRadius="10sp"
-                android:textColor="@color/white"
-                app:chipBackgroundColor="#1B1B1B"
-                app:chipIconVisible="true"
-                android:layout_width="wrap_content"
-                android:layout_height="50sp"
-                android:layout_alignParentEnd="true"
-                android:layout_below="@id/statusTextView"
-                android:layout_marginEnd="15sp" />
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>

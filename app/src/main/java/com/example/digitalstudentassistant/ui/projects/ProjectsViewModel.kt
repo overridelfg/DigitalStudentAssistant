@@ -59,14 +59,12 @@ class ProjectsViewModel(application: Application) : AndroidViewModel(application
             projectsStateFlow.value = when(result){
                 is OperationResult.Success -> {
                     for (i in result.data.indices){
-                        projectList.add(ProjectResponse(result.data[i].body.id,
-                            result.data[i].body.title,
-                            result.data[i].body.description,
-                            result.data[i].body.communication,
-                            result.data[i].body.creatorId,
-                            result.data[i].body.tags.map {
-                                it.toTagResponse()
-                            }))
+                        projectList.add(ProjectResponse(result.data[i].id,
+                            result.data[i].title,
+                            result.data[i].description,
+                            result.data[i].communication,
+                            result.data[i].creatorId,
+                            result.data[i].tags))
                     }
                     UIState.Success(projectList)
                 }

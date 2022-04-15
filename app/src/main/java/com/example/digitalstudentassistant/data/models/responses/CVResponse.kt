@@ -3,6 +3,7 @@ package com.example.digitalstudentassistant.data.models.responses
 import com.example.digitalstudentassistant.domain.models.CV
 
 data class CVResponse(
+    val id: String,
     val nameCV: String,
     val aboutInfo: String,
     val school: String,
@@ -16,6 +17,7 @@ data class CVResponse(
 )
 fun CVResponse.toCV(): CV {
     return CV(
+        id,
         nameCV,
         aboutInfo,
         school,

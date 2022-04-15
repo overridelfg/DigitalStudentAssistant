@@ -39,12 +39,17 @@ interface ApiService {
     @GET("api/project/getCreated")
     suspend fun getUserProjects(
         @Header("Authorization") auth: String
-    ) : UserProjectResponse
+    ) : List<ProjectResponse>
+
+    @POST("api/project/getLiked")
+    suspend fun getLiked(
+        @Header("Authorization") auth: String
+    ) : List<ProjectResponse>
 
     @POST("api/project/search")
     suspend fun getProjectSearch(
         @Query("key") key : String,
-    ) : UserProjectResponse
+    ) : List<ProjectResponse>
 
     @POST("api/project/like/{idProject}")
     suspend fun addLike(
@@ -54,9 +59,14 @@ interface ApiService {
 
     @POST("api/project/removeLike/{idProject}")
     suspend fun removeLike(
-        @Query("Authorization") token : String,
+        @Header("Authorization") token : String,
         @Path("idProject") idProject: String
     ): ProjectResponse
+
+    @POST("api/project/showLikes")
+    suspend fun showLikes(
+        @Query("idProject") idProject: String
+    ) : Likes
 
     @POST("api/project/updateProject")
     suspend fun updateProject(
@@ -65,21 +75,43 @@ interface ApiService {
         @Body updateProjectRequest: UpdateProjectRequest
     ): ProjectResponse
 
-    @GET("api/project/recommend")
+    @POST("api/project/recommend")
     suspend fun getRecommendationProjects(
-        @Query("Token") token : String
-    ): MutableList<ProjectResponse>
+        @Header("Authorization") auth: String
+    ): List<ProjectResponse>
+
+    @POST("api/project/view/{idProject}")
+    suspend fun postView(
+        @Header("Authorization") auth: String,
+        @Path("idProject") idProject: String
+    ) : ProjectResponse
+
+    @POST("api/project/showViews")
+    suspend fun getViews(
+        @Header("Authorization") auth: String,
+        @Query("idProject") idProject: String
+    ) : Views
 
 
 
-
-
-    @GET("cv/all")
+    @GET("api/cv/all")
     suspend fun getAllCV() : List<CVResponse>
 
-    @POST("cv/add")
+    @POST("api/cv/add")
     suspend fun addCV(
         @Header("Authorization") auth: String,
         @Body cv: CVRequest
     ) : CVResponse
+
+    @POST("api/cv/update")
+    suspend fun updateCV(
+        @Header("Authorization") auth: String,
+        @Query("idCV") idCV : String,
+        @Body cv: CVRequest
+    ): CVResponse
+
+    @GET("api/cv/getCV/{idUser}")
+    suspend fun getUserCV(
+        @Path("idUser") idUser: String
+    ) : List<CVResponse>
 }

@@ -5,6 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class CV(
+    val id : String,
     val nameCV : String,
     val aboutInfo : String,
     val school : String,

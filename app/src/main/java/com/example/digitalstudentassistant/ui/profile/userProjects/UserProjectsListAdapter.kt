@@ -29,24 +29,10 @@ class UserProjectsListAdapter (var context: Context, val click: (ProjectResponse
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.projectNameTextView.text = projectsList[position].title
         holder.projectDescriptionTextView.text = projectsList[position].description
-        var tagsList = projectsList[position].tags
-//        var tagsStringList = mutableListOf<String>()
-//        for (tag in tagsList){
-//            holder.projectStatusTextView.text = holder.projectStatusTextView.text.toString() + projectsList[position].tags. + "\n"
-//        }
         holder.itemView.setOnClickListener {
             click.invoke(projectsList[position])
         }
-        holder.likeChip.setOnClickListener {
-            holder.likeChip.isSelected = !holder.likeChip.isSelected
-            if(holder.likeChip.isSelected){
-                holder.likeChip.text = (holder.likeChip.text.toString().toInt() + 1).toString()
-                holder.likeChip.setChipIconResource(R.drawable.ic_thumb_up)
-            }else{
-                holder.likeChip.text = (holder.likeChip.text.toString().toInt() - 1).toString()
-                holder.likeChip.setChipIconResource(R.drawable.ic_outline_thumb_up)
-            }
-        }
+
     }
 
     override fun getItemCount(): Int {
@@ -55,8 +41,6 @@ class UserProjectsListAdapter (var context: Context, val click: (ProjectResponse
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val projectNameTextView: TextView = itemView.findViewById(R.id.projectNameTextView)
-        val projectStatusTextView: TextView = itemView.findViewById(R.id.statusTextView)
         val projectDescriptionTextView: TextView = itemView.findViewById(R.id.descriptionTextView)
-        val likeChip: Chip = itemView.findViewById(R.id.likeChip)
     }
 }

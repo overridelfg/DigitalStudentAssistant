@@ -7,7 +7,9 @@ import com.example.digitalstudentassistant.data.database.ProjectEntity
 import com.example.digitalstudentassistant.data.models.requests.CVRequest
 import com.example.digitalstudentassistant.data.models.requests.ProjectRequest
 import com.example.digitalstudentassistant.data.models.requests.UpdateProjectRequest
+import com.example.digitalstudentassistant.data.models.responses.Likes
 import com.example.digitalstudentassistant.data.models.responses.ProjectResponse
+import com.example.digitalstudentassistant.data.models.responses.Views
 import com.example.digitalstudentassistant.data.models.responses.project.UserProjectResponse
 import com.example.digitalstudentassistant.data.models.responses.toCV
 import com.example.digitalstudentassistant.data.network.ApiProvider
@@ -62,7 +64,7 @@ class ProjectRepositoryImpl(private val projectsDao: ProjectsDao, private val co
         }
     }
 
-    override suspend fun getProjectSearch(key: String): OperationResult<UserProjectResponse, String?> {
+    override suspend fun getProjectSearch(key: String): OperationResult<List<ProjectResponse>, String?> {
         return withContext(Dispatchers.IO) {
             try {
                 val result = apiService.getProjectSearch(key)
@@ -101,6 +103,17 @@ class ProjectRepositoryImpl(private val projectsDao: ProjectsDao, private val co
         }
     }
 
+    override suspend fun showLikes(projectId: String): OperationResult<Likes, String?> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val result = apiService.showLikes(projectId)
+                return@withContext OperationResult.Success(result)
+            } catch (e: Throwable) {
+                return@withContext OperationResult.Error(e.message)
+            }
+        }
+    }
+
     override suspend fun updateProject(
         idProject: String,
         updateProjectRequest: UpdateProjectRequest
@@ -118,16 +131,34 @@ class ProjectRepositoryImpl(private val projectsDao: ProjectsDao, private val co
         }
     }
 
-//    override suspend fun addLike(projectId: String): OperationResult<UserProjectResponse, String?> {
-//        return withContext(Dispatchers.IO) {
-//            try {
-//                val result = apiService.addLike("Bearer ${userPrefsStorage.loadUserFromPrefs()?.token.orEmpty()}", "")
-//                return@withContext OperationResult.Success(result)
-//            } catch (e: Throwable) {
-//                return@withContext OperationResult.Error(e.message)
-//            }
-//        }
-//    }
+    override suspend fun postView(idProject: String): OperationResult<ProjectResponse, String?> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val result = apiService.postView(
+                    "Bearer ${userPrefsStorage.loadUserFromPrefs()?.token.orEmpty()}",
+                    idProject
+                )
+                return@withContext OperationResult.Success(result)
+            } catch (e: Throwable) {
+                return@withContext OperationResult.Error(e.message)
+            }
+        }
+    }
+
+    override suspend fun getViews(idProject: String): OperationResult<Views, String?> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val result = apiService.getViews(
+                    "Bearer ${userPrefsStorage.loadUserFromPrefs()?.token.orEmpty()}",
+                    idProject
+                )
+                return@withContext OperationResult.Success(result)
+            } catch (e: Throwable) {
+                return@withContext OperationResult.Error(e.message)
+            }
+        }
+    }
+
 
 
 }

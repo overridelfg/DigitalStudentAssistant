@@ -5,6 +5,7 @@ import com.example.digitalstudentassistant.data.UserPrefsStorage
 import com.example.digitalstudentassistant.data.models.requests.LoginRequest
 import com.example.digitalstudentassistant.data.models.requests.RegisterRequest
 import com.example.digitalstudentassistant.data.models.responses.LoginResponse
+import com.example.digitalstudentassistant.data.models.responses.jwt.TokenResponse
 import com.example.digitalstudentassistant.data.network.ApiProvider
 import com.example.digitalstudentassistant.data.network.ApiService
 import com.example.digitalstudentassistant.domain.OperationResult
@@ -33,17 +34,23 @@ class AuthRepositoryImpl(context: Context) : AuthRepository {
         return withContext(Dispatchers.IO) {
             try {
                 val result = apiService.auth(LoginRequest(username, password))
-
-                userPrefsStorage.saveUserToPrefs(
-                    User(
-                        id = "sda",
-                        email = "userInfo.email!!",
-                        nickname = username,
-                        firstname = "userInfo.name",
-                        token = result.access_token
-                    )
-                )
-
+                try {
+                    withContext(Dispatchers.IO){
+                        val userDataResult =
+                            apiService.getUserData("Bearer ${result.access_token}")
+                        userPrefsStorage.saveUserToPrefs(
+                            User(
+                                id = userDataResult.sub,
+                                email = userDataResult.email!!,
+                                nickname = userDataResult.preferred_username,
+                                firstname = userDataResult.name,
+                                token = result.access_token
+                            )
+                        )
+                    }
+                } catch (e: Throwable) {
+                    return@withContext OperationResult.Error(e.message)
+                }
                 return@withContext OperationResult.Success(result)
             } catch (e: Throwable) {
                 return@withContext OperationResult.Error(e.message)
@@ -73,15 +80,23 @@ class AuthRepositoryImpl(context: Context) : AuthRepository {
                         password = password
                     )
                 )
-                userPrefsStorage.saveUserToPrefs(
-                    User(
-                        id = "userInfo.sub",
-                        email = email,
-                        nickname = nickname,
-                        firstname = "userInfo.name",
-                        token = result.access_token
-                    )
-                )
+                try {
+                    withContext(Dispatchers.IO){
+                        val userDataResult =
+                            apiService.getUserData("Bearer ${result.access_token}")
+                        userPrefsStorage.saveUserToPrefs(
+                            User(
+                                id = userDataResult.sub,
+                                email = userDataResult.email!!,
+                                nickname = userDataResult.preferred_username,
+                                firstname = userDataResult.name,
+                                token = result.access_token
+                            )
+                        )
+                    }
+                } catch (e: Throwable) {
+                    return@withContext OperationResult.Error(e.message)
+                }
                 return@withContext OperationResult.Success(result)
             } catch (e: Throwable) {
                 return@withContext OperationResult.Error(e.message)
@@ -96,4 +111,5 @@ class AuthRepositoryImpl(context: Context) : AuthRepository {
     override fun saveUser(user: User) {
         userPrefsStorage.saveUserToPrefs(user)
     }
+
 }

@@ -1,6 +1,7 @@
 package com.example.digitalstudentassistant.domain.repositories
 
 import com.example.digitalstudentassistant.data.models.responses.LoginResponse
+import com.example.digitalstudentassistant.data.models.responses.jwt.TokenResponse
 import com.example.digitalstudentassistant.domain.OperationResult
 import com.example.digitalstudentassistant.domain.models.User
 import kotlinx.coroutines.flow.Flow
@@ -25,4 +26,5 @@ interface AuthRepository {
     fun logOut()
 
     fun saveUser(user: User)
+
 }

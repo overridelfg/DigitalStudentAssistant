@@ -14,10 +14,32 @@ class ProjectsRepositoryImpl(private val context: Context) : ProjectsRepository 
 
     private val apiService =  ApiProvider(context).apiService
     private val userPrefsStorage = UserPrefsStorage(context)
-    override suspend fun getUserProjects(): OperationResult<UserProjectResponse, String?> {
+    override suspend fun getUserProjects(): OperationResult<List<ProjectResponse>, String?> {
         return withContext(Dispatchers.IO){
             try {
                 val result = apiService.getUserProjects("Bearer ${userPrefsStorage.loadUserFromPrefs()?.token.orEmpty()}")
+                return@withContext OperationResult.Success(result)
+            }catch (e: Throwable){
+                return@withContext OperationResult.Error(e.message)
+            }
+        }
+    }
+
+    override suspend fun getLiked(): OperationResult<List<ProjectResponse>, String?> {
+        return withContext(Dispatchers.IO){
+            try {
+                val result = apiService.getLiked("Bearer ${userPrefsStorage.loadUserFromPrefs()?.token.orEmpty()}")
+                return@withContext OperationResult.Success(result)
+            }catch (e: Throwable){
+                return@withContext OperationResult.Error(e.message)
+            }
+        }
+    }
+
+    override suspend fun getRecommendProjects(): OperationResult<List<ProjectResponse>, String?> {
+        return withContext(Dispatchers.IO){
+            try {
+                val result = apiService.getRecommendationProjects("Bearer ${userPrefsStorage.loadUserFromPrefs()?.token.orEmpty()}")
                 return@withContext OperationResult.Success(result)
             }catch (e: Throwable){
                 return@withContext OperationResult.Error(e.message)

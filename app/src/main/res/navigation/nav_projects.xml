@@ -24,15 +24,16 @@
         android:name="com.example.digitalstudentassistant.ui.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
-        <action
-            android:id="@+id/action_profileFragment_to_profileEditFragment"
-            app:destination="@id/profileEditFragment" />
+
         <action
             android:id="@+id/action_profileFragment_to_createCVFragment"
             app:destination="@id/createCVFragment" />
         <action
             android:id="@+id/action_profileFragment_to_userProjectsFragment"
             app:destination="@id/userProjectsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_likedProjectsFragment"
+            app:destination="@id/likedProjectsFragment" />
     </fragment>
     <fragment
         android:id="@+id/projectFragment"
@@ -47,11 +48,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/profileEditFragment"
-        android:name="com.example.digitalstudentassistant.ui.profile.ProfileEditFragment"
-        android:label="fragment_profile_edit"
-        tools:layout="@layout/fragment_profile_edit" />
-    <fragment
         android:id="@+id/recommendationFragment"
         android:name="com.example.digitalstudentassistant.ui.recommendation.RecommendationFragment"
         android:label="fragment_recommendation"
@@ -62,7 +58,13 @@
         android:label="fragment_courses"
         tools:layout="@layout/fragment_courses" />
     <fragment
+        android:id="@+id/userProjectsFragment"
+        android:name="com.example.digitalstudentassistant.ui.profile.userProjects.UserProjectsFragment"
+        android:label="fragment_user_projects"
+        tools:layout="@layout/fragment_user_projects" />
+    <fragment
         android:id="@+id/createCVFragment"
+        tools:layout="@layout/fragment_create_c_v"
         android:name="com.example.digitalstudentassistant.ui.cv.CreateCVFragment"
         android:label="CreateCVFragment" >
         <action
@@ -70,8 +72,8 @@
             app:destination="@id/profileFragment" />
     </fragment>
     <fragment
-        android:id="@+id/userProjectsFragment"
-        android:name="com.example.digitalstudentassistant.ui.profile.userProjects.UserProjectsFragment"
-        android:label="fragment_user_projects"
-        tools:layout="@layout/fragment_user_projects" />
+        android:id="@+id/likedProjectsFragment"
+        android:name="com.example.digitalstudentassistant.ui.profile.likedProjects.LikedProjectsFragment"
+        android:label="fragment_liked_projects"
+        tools:layout="@layout/fragment_liked_projects" />
 </navigation>

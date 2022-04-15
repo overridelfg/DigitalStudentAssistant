@@ -1,15 +1,296 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#121212"
-    tools:context=".ui.cv.CVEditFragment">
+    android:fillViewport="true">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:background="#121212"
+        tools:context=".ui.cv.CVEditFragment">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/cVTitleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10sp"
+            android:layout_marginTop="20sp"
+            android:gravity="center"
+            android:text="Резюме"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/cVNameContainer"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20sp"
+            android:layout_marginTop="20sp"
+            android:textColorHint="@color/white"
+            app:boxBackgroundColor="#1B1B1B"
+            app:boxStrokeColor="#4885ed"
+            app:hintTextColor="#4885ed"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cVTitleTextView">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/cVNameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Название"
+                android:lines="1"
+                android:maxLength="36"
+                android:maxLines="1"
+                android:textColor="@color/white"
+                android:textCursorDrawable="@color/mainBlue" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/cVAboutInfoContainer"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20sp"
+            android:layout_marginTop="10sp"
+            android:textColorHint="@color/white"
+            app:boxStrokeColor="#4885ed"
+            app:hintTextColor="#4885ed"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cVNameContainer">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/cVAboutInfoEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="top"
+                android:hint="Описание"
+                android:lines="5"
+                android:textColor="@color/white"
+                android:textCursorDrawable="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/schoolContainer"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20sp"
+            android:layout_marginTop="10sp"
+            android:textColorHint="@color/white"
+            app:boxStrokeColor="#4885ed"
+            app:hintTextColor="#4885ed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cVAboutInfoContainer">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/schoolEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Школа"
+                android:lines="1"
+                android:maxLines="1"
+                android:textColor="@color/white"
+                android:textCursorDrawable="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/universityContainer"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20sp"
+            android:layout_marginTop="10sp"
+            android:textColorHint="@color/white"
+            app:boxStrokeColor="#4885ed"
+            app:hintTextColor="#4885ed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/schoolContainer">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/universityEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Универститет"
+                android:lines="1"
+                android:maxLines="1"
+                android:textColor="@color/white"
+                android:textCursorDrawable="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/workStatusContainer"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20sp"
+            android:layout_marginTop="10sp"
+            android:textColorHint="@color/white"
+            app:boxStrokeColor="#4885ed"
+            app:hintTextColor="#4885ed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/universityContainer">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/workStatusEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Рабочий статус"
+                android:lines="1"
+                android:maxLines="1"
+                android:textColor="@color/white"
+                android:textCursorDrawable="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/citizenshipContainer"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20sp"
+            android:layout_marginTop="10sp"
+            android:textColorHint="@color/white"
+            app:boxStrokeColor="#4885ed"
+            app:hintTextColor="#4885ed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/workStatusContainer">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/citizenshipEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Гражданство"
+                android:lines="1"
+                android:maxLines="1"
+                android:textColor="@color/white"
+                android:textCursorDrawable="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/languageContainer"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20sp"
+            android:layout_marginTop="10sp"
+            android:textColorHint="@color/white"
+            app:boxStrokeColor="#4885ed"
+            app:hintTextColor="#4885ed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/citizenshipContainer">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/languageEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Язык"
+                android:lines="1"
+                android:maxLines="1"
+                android:textColor="@color/white"
+                android:textCursorDrawable="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/workScheduleContainer"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20sp"
+            android:layout_marginTop="10sp"
+            android:textColorHint="@color/white"
+            app:boxStrokeColor="#4885ed"
+            app:hintTextColor="#4885ed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/languageContainer">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/workScheduleEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="График работы"
+                android:lines="1"
+                android:maxLines="1"
+                android:textColor="@color/white"
+                android:textCursorDrawable="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/skillsContainer"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20sp"
+            android:layout_marginTop="10sp"
+            android:textColorHint="@color/white"
+            app:boxStrokeColor="#4885ed"
+            app:hintTextColor="#4885ed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/workScheduleContainer">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/skillsEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Навыки"
+                android:lines="1"
+                android:maxLines="1"
+                android:textColor="@color/white"
+                android:textCursorDrawable="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/busynessContainer"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20sp"
+            android:layout_marginTop="10sp"
+            android:textColorHint="@color/white"
+            app:boxStrokeColor="#4885ed"
+            app:hintTextColor="#4885ed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/skillsContainer">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/busynessEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Занятость"
+                android:lines="1"
+                android:maxLines="1"
+                android:textColor="@color/white"
+                android:textCursorDrawable="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/changeButton"
+            android:layout_width="match_parent"
+            android:layout_height="60sp"
+            android:layout_marginHorizontal="20sp"
+            android:layout_marginTop="20sp"
+            android:layout_marginBottom="10sp"
+            android:text="Изменить"
+            app:backgroundTint="#1B1B1B"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/busynessContainer" />
+
+        <ProgressBar
+            android:id="@+id/changeCVProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

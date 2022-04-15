@@ -35,16 +35,6 @@ class ProjectsListAdapter(var context: Context, val click: (ProjectResponse) -> 
         holder.itemView.setOnClickListener {
             click.invoke(projectsList[position])
         }
-        holder.likeChip.setOnClickListener {
-            holder.likeChip.isSelected = !holder.likeChip.isSelected
-            if(holder.likeChip.isSelected){
-                holder.likeChip.text = (holder.likeChip.text.toString().toInt() + 1).toString()
-                holder.likeChip.setChipIconResource(R.drawable.ic_thumb_up)
-            }else{
-                holder.likeChip.text = (holder.likeChip.text.toString().toInt() - 1).toString()
-                holder.likeChip.setChipIconResource(R.drawable.ic_outline_thumb_up)
-            }
-        }
     }
 
     override fun getItemCount(): Int {
@@ -53,9 +43,7 @@ class ProjectsListAdapter(var context: Context, val click: (ProjectResponse) -> 
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val projectNameTextView: TextView = itemView.findViewById(R.id.projectNameTextView)
-        val projectStatusTextView: TextView = itemView.findViewById(R.id.statusTextView)
         val projectDescriptionTextView: TextView = itemView.findViewById(R.id.descriptionTextView)
-        val likeChip: Chip = itemView.findViewById(R.id.likeChip)
     }
 
 }
