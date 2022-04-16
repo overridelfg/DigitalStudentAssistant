@@ -20,6 +20,7 @@ import com.example.digitalstudentassistant.data.models.responses.TagResponse
 import com.example.digitalstudentassistant.databinding.FragmentProjectDetailsViewBinding
 import com.example.digitalstudentassistant.domain.models.Project
 import com.example.digitalstudentassistant.ui.UIState
+import com.example.digitalstudentassistant.ui.profile.likedProjects.LikedProjectViewModel
 import com.example.digitalstudentassistant.ui.project.ProjectFragmentDirections
 import com.example.digitalstudentassistant.ui.project.ProjectViewModel
 import com.google.android.material.chip.Chip
@@ -33,6 +34,7 @@ class ProjectDetailsViewFragment : Fragment() {
 
     private lateinit var binding: FragmentProjectDetailsViewBinding
     private lateinit var projectDetailsViewModel : ProjectDetailsViewModel
+    private val likedViewModel by viewModels<LikedProjectViewModel>()
     private lateinit var userPrefsStorage: UserPrefsStorage
     private lateinit var project: Project
 
@@ -50,6 +52,9 @@ class ProjectDetailsViewFragment : Fragment() {
         subscribeAddLike()
         subscribeRemoveLike()
         subscribeShowLikes()
+        subscribeShowViews()
+        subscribePostView()
+        subscribeGetLikedProjects()
         userPrefsStorage = UserPrefsStorage(requireContext())
         val projectId = arguments?.getString("projectId")!!
         val title = arguments?.getString("title")!!
@@ -61,19 +66,24 @@ class ProjectDetailsViewFragment : Fragment() {
         for (i in tags){
             addChip(i)
         }
+        likedViewModel.getLiked()
         projectDetailsViewModel.showLikes(projectId)
         binding.projectNameTextView.text = title
         binding.descriptionTextView.text = description
         binding.communicationTextView.text = communication
-
+        projectDetailsViewModel.postView(projectId)
+        projectDetailsViewModel.showView(projectId)
         binding.editButton.setOnClickListener {
             setUpEditButton(projectId, title, description, communication, tagsString, creatorId)
         }
 
-        if(arguments?.getString("creatorId")!! == userPrefsStorage.loadUserFromPrefs()!!.id)
+        if(arguments?.getString("creatorId")!! == userPrefsStorage.loadUserFromPrefs()!!.id){
             binding.editButton.isVisible = true
-        else
+            binding.likeChip.isClickable = false
+        } else{
             binding.editButton.isVisible = false
+            binding.likeChip.isClickable = true
+        }
     }
 
     private fun addChip(text: String){
@@ -105,12 +115,12 @@ class ProjectDetailsViewFragment : Fragment() {
             binding.likeChip.isSelected = ! binding.likeChip.isSelected
             if(binding.likeChip.isSelected){
                 projectDetailsViewModel.addLike(arguments?.getString("projectId")!!)
+                binding.likeChip.text = (binding.likeChip.text.toString().toInt() + 1).toString()
                 binding.likeChip.setChipIconResource(R.drawable.ic_thumb_up)
-                projectDetailsViewModel.showLikes(arguments?.getString("projectId")!!)
             }else{
                 projectDetailsViewModel.removeLike(arguments?.getString("projectId")!!)
                 binding.likeChip.setChipIconResource(R.drawable.ic_outline_thumb_up)
-                projectDetailsViewModel.showLikes(arguments?.getString("projectId")!!)
+                binding.likeChip.text = (binding.likeChip.text.toString().toInt() - 1).toString()
             }
         }
     }
@@ -165,6 +175,58 @@ class ProjectDetailsViewFragment : Fragment() {
                     Snackbar.make(requireView(), it.data.toString(), Snackbar.LENGTH_LONG)
                         .setAction("OK") {
                         }.show()
+                }
+            }
+        }.launchIn(lifecycleScope)
+    }
+
+    private fun subscribePostView(){
+        projectDetailsViewModel.postViewStateFlowPublic.onEach {
+            when(it) {
+                is UIState.Loading -> {
+
+                }
+                is UIState.Success -> {
+
+                }
+                is UIState.Error -> {
+
+                }
+            }
+        }.launchIn(lifecycleScope)
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun subscribeShowViews(){
+        projectDetailsViewModel.showViewsStateFlowPublic.onEach {
+            when(it) {
+                is UIState.Loading -> {
+
+                }
+                is UIState.Success -> {
+                    binding.statusTextView.text = "Просмотров: " + it.data.int.toString()
+                }
+                is UIState.Error -> {
+
+                }
+            }
+        }.launchIn(lifecycleScope)
+    }
+
+    private fun subscribeGetLikedProjects(){
+        likedViewModel.likedProjectsStateFlowPublic.onEach {
+            when(it){
+                is UIState.Loading -> {
+                }
+                is UIState.Success -> {
+                    for (project in it.data){
+                        if(project.id == arguments?.getString("projectId")!!){
+                            binding.likeChip.isSelected = true
+                            binding.likeChip.setChipIconResource(R.drawable.ic_thumb_up)
+                        }
+                    }
+                }
+                is UIState.Error -> {
                 }
             }
         }.launchIn(lifecycleScope)
