@@ -114,4 +114,7 @@ interface ApiService {
     suspend fun getUserCV(
         @Path("idUser") idUser: String
     ) : List<CVResponse>
+
+    @GET("api/courses/all")
+    suspend fun getAllCourses() : List<CourseResponse>
 }

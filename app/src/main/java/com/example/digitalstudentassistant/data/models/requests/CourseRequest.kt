@@ -1,9 +1,8 @@
 package com.example.digitalstudentassistant.data.models.requests
 
 data class CourseRequest(
+    val id: String? = null,
     val name: String,
-    val spec: String,
-    val seatsNumber: Int,
-    val teacher: String,
+    val about: String,
     val source: String,
 )
