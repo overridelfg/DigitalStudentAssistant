@@ -1,42 +1,27 @@
 package com.example.digitalstudentassistant.ui.project
 
-import android.annotation.SuppressLint
-import android.app.DatePickerDialog
 import android.os.Bundle
 import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.EditText
-import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.digitalstudentassistant.R
 import com.example.digitalstudentassistant.data.UserPrefsStorage
-import com.example.digitalstudentassistant.data.database.ProjectEntity
 import com.example.digitalstudentassistant.data.models.requests.ProjectRequest
 import com.example.digitalstudentassistant.data.models.requests.TagRequest
 import com.example.digitalstudentassistant.databinding.FragmentProjectBinding
 
-import com.example.digitalstudentassistant.domain.models.Project
 import com.example.digitalstudentassistant.ui.UIState
 
-import com.example.digitalstudentassistant.ui.textChanges
 import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import java.lang.Error
 
 import java.util.*
 
@@ -69,7 +54,6 @@ class ProjectFragment : Fragment() {
         val name = binding.projectNameEditText.text.toString()
         val communication = binding.communicationEditText.text.toString()
         val description = binding.descriptionEditText.text.toString()
-        val status = binding.tagsEditText.text.toString()
         var tags = mutableListOf<TagRequest>()
         for (i in 0 until binding.chipGroup.childCount) {
             val chip = binding.chipGroup.getChildAt(i) as Chip
@@ -83,18 +67,8 @@ class ProjectFragment : Fragment() {
             creatorId = "userPrefsStorage.loadUserFromPrefs()!!.id"
         )
         if (inputCheck(name, communication, description)) {
-            val project = ProjectEntity(
-                1,
-                name,
-                communication,
-                description,
-                status
-            )
-//            projectViewModel.addProject(project)
             projectViewModel.createProject(project = projectRequest)
-
         }
-
     }
 
     private fun subscribeCreateProject() {

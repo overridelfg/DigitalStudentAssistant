@@ -8,9 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.digitalstudentassistant.R
-import com.example.digitalstudentassistant.data.database.ProjectEntity
 import com.example.digitalstudentassistant.data.models.responses.ProjectResponse
-import com.google.android.material.chip.Chip
 
 class ProjectRecommendationListAdapter(var context: Context, val click: (ProjectResponse) -> Unit) : RecyclerView.Adapter<ProjectRecommendationListAdapter.ViewHolder>() {
     var projectsList: MutableList<ProjectResponse> = mutableListOf()

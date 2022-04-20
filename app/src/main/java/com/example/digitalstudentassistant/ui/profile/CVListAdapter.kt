@@ -3,13 +3,10 @@ package com.example.digitalstudentassistant.ui.profile
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.digitalstudentassistant.R
-import com.example.digitalstudentassistant.data.database.ProjectEntity
 import com.example.digitalstudentassistant.domain.models.CV
-import com.example.digitalstudentassistant.ui.projects.ProjectsListAdapter
 
 class CVListAdapter(val click: (CV) -> Unit) : RecyclerView.Adapter<CVListAdapter.ViewHolder>() {
 

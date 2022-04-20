@@ -5,15 +5,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.digitalstudentassistant.R
-import com.example.digitalstudentassistant.data.database.ProjectEntity
 import com.example.digitalstudentassistant.data.models.responses.ProjectResponse
-import com.example.digitalstudentassistant.domain.models.Project
-import com.google.android.material.chip.Chip
-import org.w3c.dom.Text
 
 class ProjectsListAdapter(var context: Context, val click: (ProjectResponse) -> Unit) : RecyclerView.Adapter<ProjectsListAdapter.ViewHolder>() {
     var projectsList: MutableList<ProjectResponse> = mutableListOf()

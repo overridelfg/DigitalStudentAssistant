@@ -13,8 +13,6 @@ class ApiProvider(private val context: Context) {
     private fun getRetrofit(): Retrofit {
         val userPrefsStorage : UserPrefsStorage = UserPrefsStorage(context)
 
-        val tokenAuthenticator = TokenAuthenticator(userPrefsStorage)
-
         val logging = HttpLoggingInterceptor()
         logging.level = HttpLoggingInterceptor.Level.BODY
 

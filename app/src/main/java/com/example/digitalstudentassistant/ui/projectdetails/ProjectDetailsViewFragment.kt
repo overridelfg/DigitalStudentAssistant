@@ -3,7 +3,6 @@ package com.example.digitalstudentassistant.ui.projectdetails
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,28 +10,19 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.digitalstudentassistant.R
 import com.example.digitalstudentassistant.data.UserPrefsStorage
-import com.example.digitalstudentassistant.data.database.ProjectEntity
-import com.example.digitalstudentassistant.data.models.responses.TagResponse
 import com.example.digitalstudentassistant.databinding.FragmentProjectDetailsViewBinding
 import com.example.digitalstudentassistant.domain.models.Project
 import com.example.digitalstudentassistant.ui.UIState
-import com.example.digitalstudentassistant.ui.cv.CVActivity
-import com.example.digitalstudentassistant.ui.profile.CVListAdapter
 import com.example.digitalstudentassistant.ui.profile.likedProjects.LikedProjectViewModel
-import com.example.digitalstudentassistant.ui.project.ProjectFragmentDirections
-import com.example.digitalstudentassistant.ui.project.ProjectViewModel
 import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
 
 class ProjectDetailsViewFragment : Fragment() {
 

@@ -3,8 +3,6 @@ package com.example.digitalstudentassistant.ui.projectdetails
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.digitalstudentassistant.data.database.ProjectEntity
-import com.example.digitalstudentassistant.data.database.ProjectsDatabase
 import com.example.digitalstudentassistant.data.models.requests.UpdateProjectRequest
 import com.example.digitalstudentassistant.data.models.responses.Likes
 import com.example.digitalstudentassistant.data.models.responses.ProjectResponse
@@ -53,13 +51,9 @@ class ProjectDetailsViewModel(application: Application) : AndroidViewModel(appli
 
 
     init {
-        val projectsDao = ProjectsDatabase.create(application).projectsDao()
-        projectRepository = ProjectRepositoryImpl(projectsDao, application.applicationContext)
+        projectRepository = ProjectRepositoryImpl(application.applicationContext)
     }
 
-    fun getProjectFromDB(projectId: Int) : Flow<ProjectEntity> {
-        return projectRepository.getProjectFromDB(projectId)
-    }
 
     fun updateProject(idProject: String, updateProjectRequest: UpdateProjectRequest){
         viewModelScope.launch {
