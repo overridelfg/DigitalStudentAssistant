@@ -12,6 +12,8 @@
         android:id="@+id/splashTitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginHorizontal="10sp"
         android:text="Digital Student Assistant"
         android:textColor="@color/white"
         android:textSize="30sp"

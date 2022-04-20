@@ -40,6 +40,7 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentProfileBinding.inflate(layoutInflater)
+        userPrefsStorage = UserPrefsStorage(requireContext())
         return binding.root
     }
 
@@ -52,7 +53,7 @@ class ProfileFragment : Fragment() {
         setUpCreateCVButton()
         subscribeGetUserCV()
         setUpButtonLikedProjects()
-        cVViewModel.getCV()
+        cVViewModel.getCV(userPrefsStorage.loadUserFromPrefs()!!.id)
     }
 
 
@@ -96,6 +97,7 @@ class ProfileFragment : Fragment() {
     private fun setUpAdapter(){
         cVListAdapter = CVListAdapter{
             val intent = Intent(requireContext(), CVActivity::class.java)
+            intent.putExtra("userId", userPrefsStorage.loadUserFromPrefs()!!.id)
             intent.putExtra("cvId", it.id)
             intent.putExtra("nameCV", it.nameCV)
             intent.putExtra("aboutInfo", it.aboutInfo)

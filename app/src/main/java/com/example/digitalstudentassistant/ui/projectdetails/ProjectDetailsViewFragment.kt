@@ -1,6 +1,7 @@
 package com.example.digitalstudentassistant.ui.projectdetails
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.digitalstudentassistant.R
 import com.example.digitalstudentassistant.data.UserPrefsStorage
 import com.example.digitalstudentassistant.data.database.ProjectEntity
@@ -20,6 +22,8 @@ import com.example.digitalstudentassistant.data.models.responses.TagResponse
 import com.example.digitalstudentassistant.databinding.FragmentProjectDetailsViewBinding
 import com.example.digitalstudentassistant.domain.models.Project
 import com.example.digitalstudentassistant.ui.UIState
+import com.example.digitalstudentassistant.ui.cv.CVActivity
+import com.example.digitalstudentassistant.ui.profile.CVListAdapter
 import com.example.digitalstudentassistant.ui.profile.likedProjects.LikedProjectViewModel
 import com.example.digitalstudentassistant.ui.project.ProjectFragmentDirections
 import com.example.digitalstudentassistant.ui.project.ProjectViewModel
@@ -36,6 +40,7 @@ class ProjectDetailsViewFragment : Fragment() {
     private lateinit var projectDetailsViewModel : ProjectDetailsViewModel
     private val likedViewModel by viewModels<LikedProjectViewModel>()
     private lateinit var userPrefsStorage: UserPrefsStorage
+    private lateinit var usersListAdapter: UsersListAdapter
     private lateinit var project: Project
 
     override fun onCreateView(
@@ -53,7 +58,9 @@ class ProjectDetailsViewFragment : Fragment() {
         subscribeRemoveLike()
         subscribeShowLikes()
         subscribeShowViews()
+        setUpAdapter()
         subscribePostView()
+        subscribeGetWhoLiked()
         subscribeGetLikedProjects()
         userPrefsStorage = UserPrefsStorage(requireContext())
         val projectId = arguments?.getString("projectId")!!
@@ -73,6 +80,7 @@ class ProjectDetailsViewFragment : Fragment() {
         binding.communicationTextView.text = communication
         projectDetailsViewModel.postView(projectId)
         projectDetailsViewModel.showView(projectId)
+        projectDetailsViewModel.getWhoLikedProject(projectId)
         binding.editButton.setOnClickListener {
             setUpEditButton(projectId, title, description, communication, tagsString, creatorId)
         }
@@ -93,21 +101,22 @@ class ProjectDetailsViewFragment : Fragment() {
         chip.isCloseIconVisible = true
         binding.chipGroup.addView(chip)
     }
-    private fun db(){
-//            lifecycle.coroutineScope.launch {
-//            projectDetailsViewModel.getProjectFromDB(projectId.toInt()).collect {
-//                binding.projectNameTextView.text = it.name
-//                binding.statusTextView.text = it.communication
-//                binding.purposeTextView.text = it.tags
-//                binding.descriptionTextView.text = it.description
-//                project = Project(it.id,
-//                    it.name,
-//                    it.communication,
-//                    it.description,
-//                    it.tags)
-//                setUpEditButton(project)
-//            }
-//        }
+
+
+    private fun setUpAdapter(){
+        usersListAdapter = UsersListAdapter{
+            val intent = Intent(requireContext(), UserDetailsActivity::class.java)
+            intent.putExtra("userId", it.id)
+            intent.putExtra("email", it.email)
+            intent.putExtra("nickname", it.nickname)
+            intent.putExtra("firstName", it.firstName)
+            intent.putExtra("lastName", it.lastName)
+            intent.putExtra("telegram", it.telegram)
+            startActivity(intent)
+        }
+
+        binding.likedUsers.adapter = usersListAdapter
+        binding.likedUsers.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
     }
 
     private fun setUpChipLike(){
@@ -225,6 +234,26 @@ class ProjectDetailsViewFragment : Fragment() {
                             binding.likeChip.setChipIconResource(R.drawable.ic_thumb_up)
                         }
                     }
+                }
+                is UIState.Error -> {
+                }
+            }
+        }.launchIn(lifecycleScope)
+    }
+
+    private fun subscribeGetWhoLiked(){
+        projectDetailsViewModel.getWhoLikedStateFlowPublic.onEach {
+            when(it){
+                is UIState.Loading -> {
+                }
+                is UIState.Success -> {
+                    usersListAdapter.usersList.clear()
+                    for (element in it.data) {
+                        usersListAdapter.usersList.add(
+                            element
+                        )
+                    }
+                    usersListAdapter.notifyDataSetChanged()
                 }
                 is UIState.Error -> {
                 }

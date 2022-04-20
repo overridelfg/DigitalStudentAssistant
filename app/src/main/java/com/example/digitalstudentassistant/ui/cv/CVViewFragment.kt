@@ -5,8 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.example.digitalstudentassistant.R
+import com.example.digitalstudentassistant.data.UserPrefsStorage
 import com.example.digitalstudentassistant.databinding.FragmentCVViewBinding
 import com.example.digitalstudentassistant.domain.models.CV
 
@@ -14,12 +16,14 @@ import com.example.digitalstudentassistant.domain.models.CV
 class CVViewFragment : Fragment() {
 
     private lateinit var binding: FragmentCVViewBinding
+    private lateinit var userPrefsStorage: UserPrefsStorage
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCVViewBinding.inflate(layoutInflater)
+        userPrefsStorage = UserPrefsStorage(requireContext())
         return binding.root
     }
 
@@ -39,6 +43,10 @@ class CVViewFragment : Fragment() {
         val workSchedule = arguments?.getString("workSchedule")!!
         val skill = arguments?.getString("skill")!!
         val busyness = arguments?.getString("busyness")!!
+        val userId = arguments?.getString("userId")!!
+        if(userId != userPrefsStorage.loadUserFromPrefs()!!.id){
+            binding.changeButton.isVisible = false
+        }
         binding.nameCVTextView.text = nameCV
         binding.aboutInfoTextView.text = aboutInfo
         binding.skillsTextView.text = skill

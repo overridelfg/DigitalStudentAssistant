@@ -14,6 +14,7 @@ import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.digitalstudentassistant.R
 import com.example.digitalstudentassistant.databinding.FragmentProjectsMainBinding
 import com.example.digitalstudentassistant.ui.ProjectsActivity
 import com.example.digitalstudentassistant.ui.UIState
@@ -28,6 +29,7 @@ class ProjectsMainFragment : Fragment() {
     private lateinit var binding: FragmentProjectsMainBinding
     private val projectsViewModel by viewModels<ProjectsViewModel>()
     private lateinit var projectsListAdapter: ProjectsListAdapter
+    private var isSorted = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +44,8 @@ class ProjectsMainFragment : Fragment() {
         setupFloatingButton()
         subscribeShowAllProjects()
         subscribeShowSearchProjects()
+        subscribeSortedProjects()
+        setUpSortButton()
         projectsViewModel.showAllProjects()
         setUpSearchButton()
         setUpEditTextChanged()
@@ -50,6 +54,20 @@ class ProjectsMainFragment : Fragment() {
     private fun setUpSearchButton(){
         binding.searchProjectButton.setOnClickListener {
             projectsViewModel.getProjectSearch(binding.editTextSearch.text.toString())
+        }
+    }
+
+    private fun setUpSortButton(){
+        binding.sortProjectButton.setOnClickListener {
+            if(isSorted){
+                projectsViewModel.showAllProjects()
+                binding.sortProjectButton.setBackgroundResource(R.drawable.ic_baseline_sort_24)
+                isSorted = false
+            }else{
+                projectsViewModel.getSortedProjects()
+                binding.sortProjectButton.setBackgroundResource(R.drawable.ic_baseline_sort_selected)
+                isSorted = true
+            }
         }
     }
 
@@ -94,6 +112,29 @@ class ProjectsMainFragment : Fragment() {
 
     private fun subscribeShowAllProjects(){
         projectsViewModel.projectsStateFlowPublic.onEach {
+            when(it){
+                is UIState.Loading -> {
+                    binding.loadProjectsProgressBar.visibility = View.VISIBLE
+                }
+                is UIState.Success -> {
+                    binding.loadProjectsProgressBar.visibility = View.INVISIBLE
+                    projectsListAdapter.projectsList.clear()
+                    for (element in it.data) {
+                        projectsListAdapter.projectsList.add(
+                            element
+                        )
+                    }
+                    projectsListAdapter.notifyDataSetChanged()
+                }
+                is UIState.Error -> {
+                    binding.loadProjectsProgressBar.visibility = View.INVISIBLE
+                }
+            }
+        }.launchIn(lifecycleScope)
+    }
+
+    private fun subscribeSortedProjects(){
+        projectsViewModel.projectsSortByLikesStateFlowPublic.onEach {
             when(it){
                 is UIState.Loading -> {
                     binding.loadProjectsProgressBar.visibility = View.VISIBLE

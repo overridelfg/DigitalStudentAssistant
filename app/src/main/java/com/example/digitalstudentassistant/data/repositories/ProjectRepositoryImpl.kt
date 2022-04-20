@@ -7,11 +7,8 @@ import com.example.digitalstudentassistant.data.database.ProjectEntity
 import com.example.digitalstudentassistant.data.models.requests.CVRequest
 import com.example.digitalstudentassistant.data.models.requests.ProjectRequest
 import com.example.digitalstudentassistant.data.models.requests.UpdateProjectRequest
-import com.example.digitalstudentassistant.data.models.responses.Likes
-import com.example.digitalstudentassistant.data.models.responses.ProjectResponse
-import com.example.digitalstudentassistant.data.models.responses.Views
+import com.example.digitalstudentassistant.data.models.responses.*
 import com.example.digitalstudentassistant.data.models.responses.project.UserProjectResponse
-import com.example.digitalstudentassistant.data.models.responses.toCV
 import com.example.digitalstudentassistant.data.network.ApiProvider
 import com.example.digitalstudentassistant.domain.OperationResult
 import com.example.digitalstudentassistant.domain.repositories.ProjectRepository
@@ -46,6 +43,17 @@ class ProjectRepositoryImpl(private val projectsDao: ProjectsDao, private val co
         return withContext(Dispatchers.IO){
             try {
                 val result = apiService.getProjects()
+                return@withContext OperationResult.Success(result)
+            }catch (e: Throwable){
+                return@withContext OperationResult.Error(e.message)
+            }
+        }
+    }
+
+    override suspend fun getSortProjects(): OperationResult<List<ProjectResponse>, String?> {
+        return withContext(Dispatchers.IO){
+            try {
+                val result = apiService.getSortProjects()
                 return@withContext OperationResult.Success(result)
             }catch (e: Throwable){
                 return@withContext OperationResult.Error(e.message)
@@ -159,6 +167,18 @@ class ProjectRepositoryImpl(private val projectsDao: ProjectsDao, private val co
         }
     }
 
+    override suspend fun getWhoLiked(idProject: String): OperationResult<List<UserResponse>, String?> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val result = apiService.getWhoLiked(
+                    "Bearer ${userPrefsStorage.loadUserFromPrefs()?.token.orEmpty()}",
+                    idProject)
+                return@withContext OperationResult.Success(result)
+            } catch (e: Throwable) {
+                return@withContext OperationResult.Error(e.message)
+            }
+        }
+    }
 
 
 }

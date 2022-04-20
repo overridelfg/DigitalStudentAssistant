@@ -8,6 +8,7 @@ import com.example.digitalstudentassistant.data.database.ProjectsDatabase
 import com.example.digitalstudentassistant.data.models.requests.UpdateProjectRequest
 import com.example.digitalstudentassistant.data.models.responses.Likes
 import com.example.digitalstudentassistant.data.models.responses.ProjectResponse
+import com.example.digitalstudentassistant.data.models.responses.UserResponse
 import com.example.digitalstudentassistant.data.models.responses.Views
 import com.example.digitalstudentassistant.data.repositories.ProjectRepositoryImpl
 import com.example.digitalstudentassistant.domain.OperationResult
@@ -44,6 +45,11 @@ class ProjectDetailsViewModel(application: Application) : AndroidViewModel(appli
     private val showViewsStateFlow: MutableStateFlow<UIState<Views, String?>> =
         MutableStateFlow(UIState.NothingDo)
     val showViewsStateFlowPublic = showViewsStateFlow.asStateFlow()
+
+    private val getWhoLikedStateFlow: MutableStateFlow<UIState<List<UserResponse>, String?>> =
+        MutableStateFlow(UIState.NothingDo)
+    val getWhoLikedStateFlowPublic = getWhoLikedStateFlow.asStateFlow()
+
 
 
     init {
@@ -115,6 +121,17 @@ class ProjectDetailsViewModel(application: Application) : AndroidViewModel(appli
             showViewsStateFlow.value = UIState.Loading
             val result = projectRepository.getViews(idProject)
             showViewsStateFlow.value = when(result){
+                is OperationResult.Success -> UIState.Success(result.data)
+                is OperationResult.Error -> UIState.Error(result.data)
+            }
+        }
+    }
+
+    fun getWhoLikedProject(idProject: String){
+        viewModelScope.launch {
+            getWhoLikedStateFlow.value = UIState.Loading
+            val result = projectRepository.getWhoLiked(idProject)
+            getWhoLikedStateFlow.value = when(result){
                 is OperationResult.Success -> UIState.Success(result.data)
                 is OperationResult.Error -> UIState.Error(result.data)
             }

@@ -44,10 +44,10 @@ class CVViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun getCV(){
+    fun getCV(userId: String){
         viewModelScope.launch {
             getCVStateFlow.value = UIState.Loading
-            val result = cvRepository.getUserCV(userPrefsStorage.loadUserFromPrefs()!!.id)
+            val result = cvRepository.getUserCV(userId)
             getCVStateFlow.value = when(result){
                 is OperationResult.Success -> UIState.Success(result.data)
                 is OperationResult.Error -> UIState.Error(result.data)

@@ -31,6 +31,11 @@ class ProjectsViewModel(application: Application) : AndroidViewModel(application
         MutableStateFlow(UIState.NothingDo)
     val projectsSearchStateFlowPublic = projectsSearchStateFlow.asStateFlow()
 
+    private val projectsSortByLikesStateFlow: MutableStateFlow<UIState<List<ProjectResponse>, String?>> =
+        MutableStateFlow(UIState.NothingDo)
+    val projectsSortByLikesStateFlowPublic = projectsSortByLikesStateFlow.asStateFlow()
+
+
     init {
         val projectsDao = ProjectsDatabase.create(application).projectsDao()
         projectRepository = ProjectRepositoryImpl(projectsDao, application.applicationContext)
@@ -45,6 +50,17 @@ class ProjectsViewModel(application: Application) : AndroidViewModel(application
             projectsStateFlow.value = UIState.Loading
             val result = projectRepository.showAllProjects()
             projectsStateFlow.value = when(result){
+                is OperationResult.Success -> UIState.Success(result.data)
+                is OperationResult.Error -> UIState.Error(result.data)
+            }
+        }
+    }
+
+    fun getSortedProjects(){
+        viewModelScope.launch {
+            projectsSortByLikesStateFlow.value = UIState.Loading
+            val result = projectRepository.getSortProjects()
+            projectsSortByLikesStateFlow.value = when(result){
                 is OperationResult.Success -> UIState.Success(result.data)
                 is OperationResult.Error -> UIState.Error(result.data)
             }

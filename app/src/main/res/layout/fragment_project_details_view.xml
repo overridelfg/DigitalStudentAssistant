@@ -122,6 +122,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tagsTitleTextView"/>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/likedUsers"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/editButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/chip_group" />
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/editButton"
         android:layout_width="match_parent"

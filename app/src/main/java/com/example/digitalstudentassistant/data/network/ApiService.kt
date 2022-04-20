@@ -41,7 +41,7 @@ interface ApiService {
         @Header("Authorization") auth: String
     ) : List<ProjectResponse>
 
-    @POST("api/project/getLiked")
+    @GET("api/project/getLiked")
     suspend fun getLiked(
         @Header("Authorization") auth: String
     ) : List<ProjectResponse>
@@ -63,7 +63,7 @@ interface ApiService {
         @Path("idProject") idProject: String
     ): ProjectResponse
 
-    @POST("api/project/showLikes")
+    @GET("api/project/showLikes")
     suspend fun showLikes(
         @Query("idProject") idProject: String
     ) : Likes
@@ -75,7 +75,7 @@ interface ApiService {
         @Body updateProjectRequest: UpdateProjectRequest
     ): ProjectResponse
 
-    @POST("api/project/recommend")
+    @GET("api/project/recommend")
     suspend fun getRecommendationProjects(
         @Header("Authorization") auth: String
     ): List<ProjectResponse>
@@ -86,12 +86,20 @@ interface ApiService {
         @Path("idProject") idProject: String
     ) : ProjectResponse
 
-    @POST("api/project/showViews")
+    @GET("api/project/showViews")
     suspend fun getViews(
         @Header("Authorization") auth: String,
         @Query("idProject") idProject: String
     ) : Views
 
+    @GET("api/project/sortByLikes")
+    suspend fun getSortProjects() : List<ProjectResponse>
+
+    @GET("api/project/getWhoLiked")
+    suspend fun getWhoLiked(
+        @Header("Authorization") auth: String,
+        @Query("idProject") idProject: String
+    ) : List<UserResponse>
 
 
     @GET("api/cv/all")
