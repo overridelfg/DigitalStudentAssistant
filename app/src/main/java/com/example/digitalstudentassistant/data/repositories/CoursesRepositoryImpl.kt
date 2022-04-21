@@ -2,7 +2,6 @@ package com.example.digitalstudentassistant.data.repositories
 
 import android.content.Context
 import com.example.digitalstudentassistant.data.models.responses.CourseResponse
-import com.example.digitalstudentassistant.data.models.responses.toCV
 import com.example.digitalstudentassistant.data.network.ApiProvider
 import com.example.digitalstudentassistant.domain.OperationResult
 import com.example.digitalstudentassistant.domain.repositories.CoursesRepository

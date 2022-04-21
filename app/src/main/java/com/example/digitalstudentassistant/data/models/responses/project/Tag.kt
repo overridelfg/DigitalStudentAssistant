@@ -1,6 +1,5 @@
 package com.example.digitalstudentassistant.data.models.responses.project
 
-import com.example.digitalstudentassistant.data.models.requests.TagRequest
 import com.example.digitalstudentassistant.data.models.responses.TagResponse
 
 data class Tag(

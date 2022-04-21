@@ -5,14 +5,11 @@ import com.example.digitalstudentassistant.data.UserPrefsStorage
 import com.example.digitalstudentassistant.data.models.requests.LoginRequest
 import com.example.digitalstudentassistant.data.models.requests.RegisterRequest
 import com.example.digitalstudentassistant.data.models.responses.LoginResponse
-import com.example.digitalstudentassistant.data.models.responses.jwt.TokenResponse
 import com.example.digitalstudentassistant.data.network.ApiProvider
-import com.example.digitalstudentassistant.data.network.ApiService
 import com.example.digitalstudentassistant.domain.OperationResult
 import com.example.digitalstudentassistant.domain.models.User
 import com.example.digitalstudentassistant.domain.repositories.AuthRepository
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 
 class AuthRepositoryImpl(context: Context) : AuthRepository {

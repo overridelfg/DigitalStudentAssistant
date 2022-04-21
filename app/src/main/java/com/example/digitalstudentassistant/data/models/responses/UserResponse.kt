@@ -1,7 +1,5 @@
 package com.example.digitalstudentassistant.data.models.responses
 
-import com.example.digitalstudentassistant.domain.models.User
-
 data class UserResponse(
     val id: String,
     val email: String,

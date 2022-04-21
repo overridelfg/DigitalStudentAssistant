@@ -1,4 +1,8 @@
 package com.example.digitalstudentassistant.ui.profile
 
-class ProfileViewModel {
+import androidx.lifecycle.ViewModel
+
+class ProfileViewModel : ViewModel(
+
+){
 }

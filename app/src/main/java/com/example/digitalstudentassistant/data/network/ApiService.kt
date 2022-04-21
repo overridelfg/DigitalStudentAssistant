@@ -3,8 +3,6 @@ package com.example.digitalstudentassistant.data.network
 import com.example.digitalstudentassistant.data.models.requests.*
 import com.example.digitalstudentassistant.data.models.responses.*
 import com.example.digitalstudentassistant.data.models.responses.jwt.TokenResponse
-import com.example.digitalstudentassistant.data.models.responses.project.UserProjectResponse
-import okhttp3.ResponseBody
 import retrofit2.http.*
 
 interface ApiService {

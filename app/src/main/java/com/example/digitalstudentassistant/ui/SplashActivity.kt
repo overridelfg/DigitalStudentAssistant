@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.digitalstudentassistant.MainActivity
-import com.example.digitalstudentassistant.R
 import com.example.digitalstudentassistant.databinding.ActivitySplashBinding
 import kotlinx.coroutines.*
 

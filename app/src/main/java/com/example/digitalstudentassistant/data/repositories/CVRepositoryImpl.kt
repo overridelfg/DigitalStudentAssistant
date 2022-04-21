@@ -1,12 +1,9 @@
 package com.example.digitalstudentassistant.data.repositories
 
-import android.content.Context
 import com.example.digitalstudentassistant.data.UserPrefsStorage
 import com.example.digitalstudentassistant.data.models.requests.CVRequest
-import com.example.digitalstudentassistant.data.models.requests.LoginRequest
 import com.example.digitalstudentassistant.data.models.responses.CVResponse
 import com.example.digitalstudentassistant.data.models.responses.toCV
-import com.example.digitalstudentassistant.data.network.ApiProvider
 import com.example.digitalstudentassistant.data.network.ApiService
 import com.example.digitalstudentassistant.domain.OperationResult
 import com.example.digitalstudentassistant.domain.models.CV
